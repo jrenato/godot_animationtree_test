@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 	direction = (camera_controller.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	direction.y = 0.0
 
-	animation_tree["parameters/Movement/IdleRun/blend_position"] = velocity.length() / MAX_SPEED
+	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
 
 
 func _physics_process(delta: float) -> void:
