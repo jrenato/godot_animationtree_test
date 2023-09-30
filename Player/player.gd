@@ -9,6 +9,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
 var state_factory: StateFactory
 var state: State
+var reverse_attack_enabled: bool = false
 
 @onready var camera_controller: Node3D = %CameraController
 @onready var player_mesh: Node3D = %Knight
@@ -47,3 +48,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y -= gravity * delta
 
 	move_and_slide()
+
+
+func enable_reverse_attack() -> void:
+	print("Enabling reverse attack")
+	reverse_attack_enabled = true

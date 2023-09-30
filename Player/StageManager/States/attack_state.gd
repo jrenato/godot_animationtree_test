@@ -9,11 +9,16 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("attack") and player.animation_tree["parameters/AttackOneShot/active"] and player.reverse_attack_enabled:
+		player.animation_tree["parameters/AttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
+		player.animation_tree["parameters/ReverseAttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+
 	if Input.is_action_just_pressed("jump") and player.is_on_floor():
 		player.animation_tree["parameters/AttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
+		player.animation_tree["parameters/ReverseAttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
 		player.change_state("jump")
 
-	if not player.animation_tree["parameters/AttackOneShot/active"]:
+	if not player.animation_tree["parameters/AttackOneShot/active"] and not player.animation_tree["parameters/ReverseAttackOneShot/active"]:
 		player.change_state("idle")
 
 	if player.direction:
