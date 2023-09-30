@@ -19,8 +19,8 @@ func _process(delta: float) -> void:
 	if player.direction:
 		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
 		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
-
-	player.animation_tree["parameters/Movement/IdleRun/blend_position"] = player.velocity.length() / player.MAX_SPEED
+	else:
+		player.change_state("idle")
 
 
 func _physics_process(delta: float) -> void:

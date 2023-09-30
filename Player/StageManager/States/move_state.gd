@@ -20,8 +20,6 @@ func _process(delta: float) -> void:
 	else:
 		player.change_state("idle")
 
-	player.animation_tree["parameters/Movement/IdleRun/blend_position"] = player.velocity.length() / player.MAX_SPEED
-
 
 func _physics_process(delta: float) -> void:
 		player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
