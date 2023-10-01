@@ -7,6 +7,7 @@ func _init() -> void:
 	states = {
 		"idle": IdleState,
 		"move": MoveState,
+		"dash": DashState,
 		"jump": JumpState,
 		"fall": FallState,
 		"attack": AttackState,

@@ -5,6 +5,10 @@ enum AttackComboState { IDLE, SLICE, REVERSE_SLICE, CHOP }
 
 const MAX_SPEED: float = 5.0
 const ACCELERATION: float = 30.0
+
+const DASH_MAX_SPEED: float = 10.0
+const DASH_ACCELERATION: float = 60.0
+
 const JUMP_VELOCITY: float = 300.0
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -61,4 +65,3 @@ func _on_next_combo_timer_timeout() -> void:
 
 	if current_combo_state == AttackComboState.REVERSE_SLICE:
 		next_combo_state = AttackComboState.CHOP
-

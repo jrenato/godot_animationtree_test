@@ -17,6 +17,9 @@ func _process(delta: float) -> void:
 	if not player.is_on_floor():
 		player.change_state("fall")
 
+	if Input.is_action_just_pressed("dash"):
+		player.change_state("dash")
+
 	if Input.is_action_just_pressed("attack"):
 		player.change_state("attack")
 
