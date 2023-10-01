@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 		player.change_state("jump")
 
 	# A combo check only makes sense if the player is on the floor
-	if player.is_on_floor() and Input.is_action_just_pressed("attack") and player.animation_tree["parameters/AttackOneShot/active"]:
+	if Input.is_action_just_pressed("attack") and player.is_on_floor() and player.animation_tree["parameters/AttackOneShot/active"]:
 		# Repeat attack command if the next combo state is ready (NextComboTimer has timed out)
 		if player.current_combo_state != player.next_combo_state:
 			player.change_state("attack")
