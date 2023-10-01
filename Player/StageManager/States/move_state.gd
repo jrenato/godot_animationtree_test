@@ -8,17 +8,17 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("jump") and player.is_on_floor():
-		player.change_state("jump")
-
-	if Input.is_action_just_pressed("attack") and player.is_on_floor():
-		player.change_state("attack")
-
 	if player.direction:
 		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
 		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
 	else:
 		player.change_state("idle")
+
+	if Input.is_action_just_pressed("jump"):
+		player.change_state("jump")
+
+	if Input.is_action_just_pressed("attack"):
+		player.change_state("attack")
 
 
 func _physics_process(delta: float) -> void:

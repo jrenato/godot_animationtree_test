@@ -11,10 +11,10 @@ func _process(delta: float) -> void:
 	if player.direction:
 		player.change_state("move")
 
-	if Input.is_action_just_pressed("jump") and player.is_on_floor():
+	if Input.is_action_just_pressed("jump"):
 		player.change_state("jump")
 
-	if Input.is_action_just_pressed("attack") and player.is_on_floor():
+	if Input.is_action_just_pressed("attack"):
 		player.change_state("attack")
 
 
