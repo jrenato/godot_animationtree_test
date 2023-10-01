@@ -1,4 +1,4 @@
-class_name JumpState extends State
+class_name FallState extends State
 
 var player : Player
 
@@ -20,10 +20,8 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	player.velocity.y += move_toward(player.velocity.y, player.JUMP_VELOCITY, player.JUMP_VELOCITY/50.0)
-
-	if player.velocity.y == player.JUMP_VELOCITY:
-		player.change_state("fall")
+	# Add the gravity.
+	player.velocity.y -= player.gravity * delta
 
 	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
 	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.MAX_SPEED, player.ACCELERATION * delta)
