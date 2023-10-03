@@ -25,6 +25,8 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 @onready var animation_tree: AnimationTree = %AnimationTree
 @onready var dash_timer: Timer = %DashTimer
 @onready var next_combo_timer: Timer = %NextComboTimer
+@onready var left_foot_point: Node3D = %LeftFootPoint
+@onready var right_foot_point: Node3D = %RightFootPoint
 
 
 func _ready() -> void:
@@ -65,3 +67,7 @@ func _on_next_combo_timer_timeout() -> void:
 
 	if current_combo_state == AttackComboState.REVERSE_SLICE:
 		next_combo_state = AttackComboState.CHOP
+
+
+func _on_footstep() -> void:
+	print("Footstep triggered")

@@ -1,21 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://bsjc1js6xo7ak"]
+[gd_scene load_steps=9 format=3 uid="uid://bsjc1js6xo7ak"]
 
 [ext_resource type="Texture2D" uid="uid://dmffhkrwsqy7p" path="res://Assets/Textures/Prototypes/Dark/texture_09.png" id="1_41w3j"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_w1pca"]
+[ext_resource type="Texture2D" uid="uid://luq606i7ygu6" path="res://Assets/Skies/industrial_sunset_puresky_4k.exr" id="2_gcg70"]
 [ext_resource type="PackedScene" uid="uid://rwalvl851ghq" path="res://Player/player.tscn" id="2_xndlv"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k7t3q"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u53lb"]
+panorama = ExtResource("2_gcg70")
 
 [sub_resource type="Sky" id="Sky_8o3mo"]
-sky_material = SubResource("ProceduralSkyMaterial_k7t3q")
+sky_material = SubResource("PanoramaSkyMaterial_u53lb")
 
 [sub_resource type="Environment" id="Environment_tadsy"]
 background_mode = 2
+background_energy_multiplier = 0.4
 sky = SubResource("Sky_8o3mo")
 tonemap_mode = 2
-glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dmxm"]
 albedo_texture = ExtResource("1_41w3j")
@@ -28,8 +28,8 @@ script = ExtResource("1_w1pca")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tadsy")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.877305, 0.415634, -0.239966, -2.04147e-08, 0.5, 0.866026, 0.479933, -0.759769, 0.438653, 0, 5.73824, 0)
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("2_xndlv")]

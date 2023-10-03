@@ -10,3 +10,6 @@ unique_name_in_owner = true
 spring_length = 8.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="SpringArm3D/Camera3D"]
+update_mode = 1
