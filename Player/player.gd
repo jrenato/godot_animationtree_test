@@ -27,9 +27,11 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 @onready var next_combo_timer: Timer = %NextComboTimer
 @onready var left_foot_point: Node3D = %LeftFootPoint
 @onready var right_foot_point: Node3D = %RightFootPoint
+@onready var run_dust_particles: GPUParticles3D = %RunDustParticles
 
 
 func _ready() -> void:
+	run_dust_particles.emitting = false
 	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
 
 	state_factory = StateFactory.new()
@@ -70,4 +72,5 @@ func _on_next_combo_timer_timeout() -> void:
 
 
 func _on_footstep() -> void:
-	print("Footstep triggered")
+	#TODO: Replace run dust particles with footsteps particles
+	pass

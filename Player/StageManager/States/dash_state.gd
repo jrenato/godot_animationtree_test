@@ -9,6 +9,11 @@ func _ready() -> void:
 	dash_direction = player.player_mesh.basis.z
 	player.dash_timer.timeout.connect(_on_dash_timer_timeout)
 	player.dash_timer.start()
+	player.run_dust_particles.emitting = true
+
+
+func exit() -> void:
+	player.run_dust_particles.emitting = false
 
 
 func _process(delta: float) -> void:
