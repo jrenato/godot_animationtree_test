@@ -23,5 +23,5 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	player.velocity.y -= player.gravity * delta
 
-	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.RUN_MAX_SPEED, player.ACCELERATION * delta)
-	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.RUN_MAX_SPEED, player.ACCELERATION * delta)
+	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
+	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.MAX_SPEED, player.ACCELERATION * delta)

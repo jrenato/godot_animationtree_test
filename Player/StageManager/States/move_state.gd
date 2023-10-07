@@ -37,5 +37,5 @@ func _physics_process(delta: float) -> void:
 #		player.direction.x = min(player.direction.x, 0.2)
 #		player.direction.z = min(player.direction.z, 0.2)
 
-	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.RUN_MAX_SPEED, player.ACCELERATION * delta)
-	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.RUN_MAX_SPEED, player.ACCELERATION * delta)
+	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
+	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.MAX_SPEED, player.ACCELERATION * delta)

@@ -3,9 +3,9 @@ class_name Player
 
 enum AttackComboState { IDLE, SLICE, REVERSE_SLICE, CHOP }
 
-const RUN_MAX_SPEED: float = 5.0
+const MAX_SPEED: float = 7.0
 const ACCELERATION: float = 30.0
-const DASH_MAX_SPEED: float = 10.0
+const DASH_MAX_SPEED: float = 14.0
 const DASH_ACCELERATION: float = 60.0
 
 const JUMP_VELOCITY: float = 300.0
@@ -59,8 +59,8 @@ func _process(delta: float) -> void:
 
 	if walk_toggle:
 		# To be able to walk while using a keyboard
-		raw_input.x = clamp(raw_input.x, -0.5, 0.5)
-		raw_input.y = clamp(raw_input.y, -0.5, 0.5)
+		raw_input.x = clamp(raw_input.x, -0.3, 0.3)
+		raw_input.y = clamp(raw_input.y, -0.3, 0.3)
 
 	direction = Vector3.ZERO
 
@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 	direction = camera_controller.global_transform.basis * direction
 	direction.y = 0.0
 
-	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / RUN_MAX_SPEED
+	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
 
 
 func _physics_process(delta: float) -> void:
