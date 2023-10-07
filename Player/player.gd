@@ -59,8 +59,8 @@ func _process(delta: float) -> void:
 
 	if walk_toggle:
 		# To be able to walk while using a keyboard
-		raw_input.x = clamp(raw_input.x, -0.3, 0.3)
-		raw_input.y = clamp(raw_input.y, -0.3, 0.3)
+		raw_input.x = raw_input.x * 0.3
+		raw_input.y = raw_input.y * 0.3
 
 	direction = Vector3.ZERO
 
