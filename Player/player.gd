@@ -3,7 +3,7 @@ class_name Player
 
 enum AttackComboState { IDLE, SLICE, REVERSE_SLICE, CHOP }
 
-const MAX_SPEED: float = 5.0
+const RUN_MAX_SPEED: float = 5.0
 const ACCELERATION: float = 30.0
 
 const DASH_MAX_SPEED: float = 10.0
@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 	direction = (camera_controller.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	direction.y = 0.0
 
-	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
+	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / RUN_MAX_SPEED
 
 
 func _physics_process(delta: float) -> void:

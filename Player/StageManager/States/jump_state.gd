@@ -25,5 +25,5 @@ func _physics_process(delta: float) -> void:
 	if player.velocity.y == player.JUMP_VELOCITY:
 		player.change_state("fall")
 
-	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
-	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.MAX_SPEED, player.ACCELERATION * delta)
+	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.RUN_MAX_SPEED, player.ACCELERATION * delta)
+	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.RUN_MAX_SPEED, player.ACCELERATION * delta)
