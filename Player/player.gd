@@ -55,11 +55,20 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	# Get the input direction
-	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	# Sets the direction to the camera's basis and normalize it.
-	direction = (camera_controller.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if walk_toggle:
+		# To be able to walk while using a keyboard
+		raw_input.x = clamp(raw_input.x, -0.5, 0.5)
+		raw_input.y = clamp(raw_input.y, -0.5, 0.5)
+
+	direction = Vector3.ZERO
+
+	# This is to ensure that diagonal input isn't stronger than axis aligned input
+	direction.x = raw_input.x * sqrt(1.0 - raw_input.y * raw_input.y / 2.0)
+	direction.z = raw_input.y * sqrt(1.0 - raw_input.x * raw_input.x / 2.0)
+
+	direction = camera_controller.global_transform.basis * direction
 	direction.y = 0.0
 
 	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / RUN_MAX_SPEED
