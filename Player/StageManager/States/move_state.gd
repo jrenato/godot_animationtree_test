@@ -5,12 +5,10 @@ var player : Player
 
 func _ready() -> void:
 	player = get_parent()
-	#player.run_dust_particles.emitting = true
 
 
 func exit() -> void:
-	pass
-	#player.run_dust_particles.emitting = false
+	player.run_dust_particles.emitting = false
 
 
 func _process(delta: float) -> void:

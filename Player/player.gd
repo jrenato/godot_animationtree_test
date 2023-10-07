@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name Player
 
-enum AttackComboState { IDLE, SLICE, REVERSE_SLICE, CHOP }
+enum AttackComboState { IDLE, SLICE, REVERSE_SLICE, CHOP, STAB }
 
 const MAX_SPEED: float = 7.0
 const ACCELERATION: float = 30.0
@@ -80,10 +80,10 @@ func _physics_process(delta: float) -> void:
 
 func _on_next_combo_timer_timeout() -> void:
 	if current_combo_state == AttackComboState.SLICE:
-		next_combo_state = AttackComboState.REVERSE_SLICE
-
-	if current_combo_state == AttackComboState.REVERSE_SLICE:
 		next_combo_state = AttackComboState.CHOP
+
+	if current_combo_state == AttackComboState.CHOP:
+		next_combo_state = AttackComboState.STAB
 
 
 func _on_footstep() -> void:

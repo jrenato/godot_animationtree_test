@@ -25,6 +25,11 @@ func _process(delta: float) -> void:
 		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
 		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
 
+	# Hack to cut the slow end of Stab animation
+	if player.animation_tree["parameters/AttackOneShot/active"] and player.current_combo_state == player.AttackComboState.STAB:
+		if player.animation_tree["parameters/Attack/playback"].get_current_play_position() >= 0.4:
+			player.animation_tree["parameters/Attack/playback"].next()
+
 	if not player.animation_tree["parameters/AttackOneShot/active"]:
 		# Reset combo if AttackOneShot has ended
 		player.current_combo_state = player.AttackComboState.IDLE
