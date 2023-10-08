@@ -5,11 +5,10 @@ var player : Player
 
 func _ready() -> void:
 	player = get_parent()
-	player.run_dust_particles.process_material.scale_curve.curve = player.walk_dust_curve
 
 
 func exit() -> void:
-	player.run_dust_particles.emitting = false
+	player.walk_dust_particles.emitting = false
 
 
 func _process(delta: float) -> void:
@@ -43,6 +42,5 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_footstep(foot: String) -> void:
-	player.run_dust_particles.emitting = true
-	await get_tree().create_timer(0.1).timeout
-	player.run_dust_particles.emitting = false
+	if not player.walk_dust_particles.emitting:
+		player.walk_dust_particles.emitting = true

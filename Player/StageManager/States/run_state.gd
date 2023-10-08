@@ -5,7 +5,6 @@ var player : Player
 
 func _ready() -> void:
 	player = get_parent()
-	player.run_dust_particles.process_material.scale_curve.curve = player.run_dust_curve
 	player.run_dust_particles.emitting = true
 
 

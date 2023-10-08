@@ -10,10 +10,6 @@ const DASH_ACCELERATION: float = 60.0
 
 const JUMP_VELOCITY: float = 300.0
 
-@export var run_dust_curve: Resource
-@export var walk_dust_curve: Resource
-#var run_curve: Resource = preload("res://Player/StageManager/Resources/dust_run_scale.tres")
-
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
 
@@ -30,9 +26,12 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 @onready var animation_tree: AnimationTree = %AnimationTree
 @onready var dash_timer: Timer = %DashTimer
 @onready var next_combo_timer: Timer = %NextComboTimer
+
 @onready var left_foot_point: Node3D = %LeftFootPoint
 @onready var right_foot_point: Node3D = %RightFootPoint
 @onready var run_dust_particles: GPUParticles3D = %RunDustParticles
+@onready var walk_dust_particles: GPUParticles3D = %WalkDustParticles
+@onready var dash_dust_particles: GPUParticles3D = %DashDustParticles
 
 
 func _ready() -> void:
