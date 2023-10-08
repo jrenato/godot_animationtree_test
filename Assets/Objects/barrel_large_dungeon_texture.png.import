@@ -2,17 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dncag5m1mrpa8"
-path.s3tc="res://.godot/imported/whitePuff01.png-006ac2efb7486970a6fd04caaae93c0d.s3tc.ctex"
+uid="uid://dxtgjb0dac6t3"
+path.s3tc="res://.godot/imported/barrel_large_dungeon_texture.png-7a6cc53a94222284e541e3040bc3d339.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://Assets/Textures/White puff/whitePuff01.png"
-dest_files=["res://.godot/imported/whitePuff01.png-006ac2efb7486970a6fd04caaae93c0d.s3tc.ctex"]
+source_file="res://Assets/Objects/barrel_large_dungeon_texture.png"
+dest_files=["res://.godot/imported/barrel_large_dungeon_texture.png-7a6cc53a94222284e541e3040bc3d339.s3tc.ctex"]
 
 [params]
 
