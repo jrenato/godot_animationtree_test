@@ -13,18 +13,21 @@ func _ready() -> void:
 	player.dash_timer.start()
 
 
-
 func exit() -> void:
+	player.dash_timer.stop()
 	player.dash_dust_particles.emitting = false
-
 
 func _process(delta: float) -> void:
 	if not player.is_on_floor():
 		player.change_state("fall")
 
-	#TODO: Add DashAttack state and set it up on AnimationTree
-	#if Input.is_action_just_pressed("attack"):
-		#player.change_state("attack")
+	if Input.is_action_just_pressed("attack"):
+		# If the player hit the button at the correct time, perform a special attack
+		if player.dash_timer.time_left <= 0.2:
+			player.change_state("dash_spin_attack")
+		else:
+			# Otherwise, just perform a common attack
+			player.change_state("attack")
 
 
 func _physics_process(delta: float) -> void:

@@ -24,9 +24,12 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 @onready var camera_controller: Node3D = %CameraController
 @onready var player_mesh: Node3D = %Knight
 @onready var animation_tree: AnimationTree = %AnimationTree
-@onready var dash_timer: Timer = %DashTimer
-@onready var next_combo_timer: Timer = %NextComboTimer
 
+# Timers
+@onready var next_combo_timer: Timer = %NextComboTimer
+@onready var dash_timer: Timer = %DashTimer
+
+# Movement FX
 @onready var left_foot_point: Node3D = %LeftFootPoint
 @onready var right_foot_point: Node3D = %RightFootPoint
 @onready var run_dust_particles: GPUParticles3D = %RunDustParticles
@@ -74,7 +77,7 @@ func _process(delta: float) -> void:
 	direction = camera_controller.global_transform.basis * direction
 	direction.y = 0.0
 
-	animation_tree["parameters/Movement/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
+	animation_tree["parameters/MovementStateMachine/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
 
 
 func _physics_process(delta: float) -> void:

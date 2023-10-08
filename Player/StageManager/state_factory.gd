@@ -13,6 +13,7 @@ func _init() -> void:
 		"fall": FallState,
 		"attack": AttackState,
 		"jump_attack": JumpAttackState,
+		"dash_spin_attack": DashSpinAttackState,
 	}
 
 
