@@ -36,10 +36,14 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 @onready var walk_dust_particles: GPUParticles3D = %WalkDustParticles
 @onready var dash_dust_particles: GPUParticles3D = %DashDustParticles
 
+@onready var hurt_area: Area3D = %HurtArea
+
 
 func _ready() -> void:
 	run_dust_particles.emitting = false
 	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
+
+	hurt_area.body_entered.connect(_on_hurt_area_body_entered)
 
 	state_factory = StateFactory.new()
 	change_state("idle")
@@ -83,6 +87,12 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	move_and_slide()
 
+	for collision_index in get_slide_collision_count():
+		var collision: KinematicCollision3D = get_slide_collision(collision_index)
+		if collision.get_collider() is RigidBody3D:
+			collision.get_collider().apply_central_impulse(-collision.get_normal() * 0.5)
+			#collision.get_collider().apply_impulse(-collision.get_normal() * 0.01, collision.get_position())
+
 
 func _on_next_combo_timer_timeout() -> void:
 	if current_combo_state == AttackComboState.SLICE:
@@ -95,3 +105,7 @@ func _on_next_combo_timer_timeout() -> void:
 func _on_footstep(foot: String) -> void:
 	if state.has_method("_on_footstep"):
 		state._on_footstep(foot)
+
+
+func _on_hurt_area_body_entered(body: Node3D) -> void:
+	print(body.name)
