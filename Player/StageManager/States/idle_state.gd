@@ -9,7 +9,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if player.direction:
-		player.change_state("move")
+		player.change_state("walk")
 
 	if Input.is_action_just_pressed("jump"):
 		player.change_state("jump")

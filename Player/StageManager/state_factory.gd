@@ -6,7 +6,8 @@ var states : Dictionary
 func _init() -> void:
 	states = {
 		"idle": IdleState,
-		"move": MoveState,
+		"walk": WalkState,
+		"run": RunState,
 		"dash": DashState,
 		"jump": JumpState,
 		"fall": FallState,

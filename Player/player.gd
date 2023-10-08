@@ -10,6 +10,10 @@ const DASH_ACCELERATION: float = 60.0
 
 const JUMP_VELOCITY: float = 300.0
 
+@export var run_dust_curve: Resource
+@export var walk_dust_curve: Resource
+#var run_curve: Resource = preload("res://Player/StageManager/Resources/dust_run_scale.tres")
+
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
 
