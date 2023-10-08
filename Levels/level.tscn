@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsjc1js6xo7ak"]
+[gd_scene load_steps=10 format=3 uid="uid://bsjc1js6xo7ak"]
 
 [ext_resource type="Texture2D" uid="uid://dmffhkrwsqy7p" path="res://Assets/Textures/Prototypes/Dark/texture_09.png" id="1_41w3j"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_w1pca"]
 [ext_resource type="Texture2D" uid="uid://luq606i7ygu6" path="res://Assets/Skies/industrial_sunset_puresky_4k.exr" id="2_gcg70"]
 [ext_resource type="PackedScene" uid="uid://rwalvl851ghq" path="res://Player/player.tscn" id="2_xndlv"]
+[ext_resource type="PackedScene" uid="uid://cvkntulr67ss0" path="res://Objects/barrel.tscn" id="5_vddww"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u53lb"]
 panorama = ExtResource("2_gcg70")
@@ -41,3 +42,10 @@ use_collision = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
 size = Vector3(30, 1, 30)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -15.5)
+size = Vector3(30, 5, 1)
+
+[node name="Barrel" parent="." instance=ExtResource("5_vddww")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -10)
