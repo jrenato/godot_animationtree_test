@@ -86,6 +86,6 @@ func _on_next_combo_timer_timeout() -> void:
 		next_combo_state = AttackComboState.STAB
 
 
-func _on_footstep() -> void:
-	#TODO: Replace run dust particles with footsteps particles
-	pass
+func _on_footstep(foot: String) -> void:
+	if state.has_method("_on_footstep"):
+		state._on_footstep(foot)

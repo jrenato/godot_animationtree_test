@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 
 	# Comparing to 0.31 for a safety margin
 	if player.run_dust_particles.emitting and player_speed <= 0.31:
-		# Player is walking, stop emitting dust
+		# Player is walking, emit dust only on footsteps
 		player.run_dust_particles.emitting = false
 	elif not player.run_dust_particles.emitting and player_speed > 0.31:
 		# Player is running, emit dust particles
@@ -44,3 +44,7 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
 	player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.MAX_SPEED, player.ACCELERATION * delta)
+
+
+func _on_footstep(foot: String) -> void:
+	pass
