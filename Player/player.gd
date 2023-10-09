@@ -36,14 +36,10 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 @onready var walk_dust_particles: GPUParticles3D = %WalkDustParticles
 @onready var dash_dust_particles: GPUParticles3D = %DashDustParticles
 
-@onready var hurt_area: Area3D = %HurtArea
-
 
 func _ready() -> void:
 	run_dust_particles.emitting = false
 	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
-
-	hurt_area.body_entered.connect(_on_hurt_area_body_entered)
 
 	state_factory = StateFactory.new()
 	change_state("idle")
@@ -105,7 +101,3 @@ func _on_next_combo_timer_timeout() -> void:
 func _on_footstep(foot: String) -> void:
 	if state.has_method("_on_footstep"):
 		state._on_footstep(foot)
-
-
-func _on_hurt_area_body_entered(body: Node3D) -> void:
-	print(body.name)
