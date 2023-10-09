@@ -22,7 +22,7 @@ var current_combo_state: AttackComboState = AttackComboState.IDLE
 var next_combo_state: AttackComboState = AttackComboState.SLICE
 
 @onready var camera_controller: Node3D = %CameraController
-@onready var player_mesh: Node3D = %Knight
+@onready var player_mesh: Node3D = %Rogue
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 # Timers
