@@ -27,17 +27,16 @@ var walk_toggle: bool = false
 var current_combo_state: AttackComboState = AttackComboState.IDLE
 var next_combo_state: AttackComboState = AttackComboState.SLICE
 
-@onready var camera_controller: Node3D = %CameraController
+# Character Base
 @onready var player_mesh: Node3D = %Knight
+@onready var camera_controller: Node3D = %CameraController
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 # Timers
 @onready var next_combo_timer: Timer = %NextComboTimer
 @onready var dash_timer: Timer = %DashTimer
 
-# Movement FX
-@onready var left_foot_point: Node3D = %LeftFootPoint
-@onready var right_foot_point: Node3D = %RightFootPoint
+# Particles
 @onready var run_dust_particles: GPUParticles3D = %RunDustParticles
 @onready var walk_dust_particles: GPUParticles3D = %WalkDustParticles
 @onready var dash_dust_particles: GPUParticles3D = %DashDustParticles
