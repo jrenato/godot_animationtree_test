@@ -1,12 +1,20 @@
 extends Node3D
 
+var viewport_initial_size = Vector2()
 
-# Called when the node enters the scene tree for the first time.
+@onready var sub_viewport: SubViewport = $WeaponHUD/SubViewport
+@onready var panel: Panel = $WeaponHUD/Panel
+
+
 func _ready() -> void:
-	pass # Replace with function body.
+	get_viewport().size_changed.connect(self._root_viewport_size_changed)
+	viewport_initial_size = sub_viewport.size
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	#print(Engine.get_frames_per_second())
-	pass
+# Called when the root's viewport size changes (i.e. when the window is resized).
+# This is done to handle multiple resolutions without losing quality.
+func _root_viewport_size_changed():
+	# The viewport is resized depending on the window height.
+	# To compensate for the larger resolution, the viewport sprite is scaled down.
+	sub_viewport.size = Vector2.ONE * get_viewport().size.y
+	#viewport_sprite.scale = Vector2.ONE * viewport_initial_size.y / get_viewport().size.y

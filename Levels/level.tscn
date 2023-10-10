@@ -1,10 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsjc1js6xo7ak"]
+[gd_scene load_steps=12 format=3 uid="uid://bsjc1js6xo7ak"]
 
 [ext_resource type="Texture2D" uid="uid://dmffhkrwsqy7p" path="res://Assets/Textures/Prototypes/Dark/texture_09.png" id="1_41w3j"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_w1pca"]
+[ext_resource type="PackedScene" uid="uid://ckaosierv4ou1" path="res://GUI/weapon_hud_viewport.tscn" id="2_66a2w"]
 [ext_resource type="Texture2D" uid="uid://luq606i7ygu6" path="res://Assets/Skies/industrial_sunset_puresky_4k.exr" id="2_gcg70"]
 [ext_resource type="PackedScene" uid="uid://rwalvl851ghq" path="res://Player/player.tscn" id="2_xndlv"]
 [ext_resource type="PackedScene" uid="uid://cvkntulr67ss0" path="res://Objects/barrel.tscn" id="5_vddww"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_iowy5"]
+viewport_path = NodePath("WeaponHUD/SubViewport")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u53lb"]
 panorama = ExtResource("2_gcg70")
@@ -25,6 +29,40 @@ uv1_world_triplanar = true
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_w1pca")
+
+[node name="WeaponHUD" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="WeaponHUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -164.0
+offset_right = 52.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="WeaponHUD/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_iowy5")
+expand_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="WeaponHUD"]
+transparent_bg = true
+msaa_3d = 2
+size = Vector2i(300, 300)
+render_target_update_mode = 4
+
+[node name="WeaponHUDViewport" parent="WeaponHUD/SubViewport" instance=ExtResource("2_66a2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2303.18, -17.7044, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tadsy")
