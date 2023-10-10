@@ -77,6 +77,12 @@ func _input(event: InputEvent) -> void:
 		else:
 			character_class = character_class - 1 as CharacterClass
 
+	if event.is_action_pressed("ui_right"):
+		Signals.weapon_cycle_up.emit()
+
+	if event.is_action_pressed("ui_left"):
+		Signals.weapon_cycle_down.emit()
+
 
 func _process(delta: float) -> void:
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
