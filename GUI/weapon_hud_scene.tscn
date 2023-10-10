@@ -257,7 +257,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="Dagger" type="Node3D" parent="WeaponNodes/Weapons"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="dagger2" type="MeshInstance3D" parent="WeaponNodes/Weapons/Dagger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0599728, 0)
@@ -266,7 +265,6 @@ skeleton = NodePath("")
 
 [node name="Axe" type="Node3D" parent="WeaponNodes/Weapons"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="axe_1handed2" type="MeshInstance3D" parent="WeaponNodes/Weapons/Axe"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.1, 0)
@@ -282,7 +280,6 @@ skeleton = NodePath("")
 
 [node name="Crossbow" type="Node3D" parent="WeaponNodes/Weapons"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="crossbow_1handed2" type="MeshInstance3D" parent="WeaponNodes/Weapons/Crossbow"]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 0.999999, 8.74227e-08, 1, 4.37114e-08, 0, 0.1, 0)
@@ -291,7 +288,6 @@ skeleton = NodePath("")
 
 [node name="Wand" type="Node3D" parent="WeaponNodes/Weapons"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="wand2" type="MeshInstance3D" parent="WeaponNodes/Weapons/Wand"]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.2, 0)
@@ -300,7 +296,6 @@ skeleton = NodePath("")
 
 [node name="Staff" type="Node3D" parent="WeaponNodes/Weapons"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="staff2" type="MeshInstance3D" parent="WeaponNodes/Weapons/Staff"]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.4, 0)
