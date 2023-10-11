@@ -53,6 +53,8 @@ func _ready() -> void:
 
 	run_dust_particles.emitting = false
 
+	_clear_all_equipment()
+
 	state_factory = StateFactory.new()
 	change_state("idle")
 
@@ -198,7 +200,17 @@ func _on_next_combo_timer_timeout() -> void:
 
 
 func _on_equipment_equipped(equipment_info: EquipmentInfo) -> void:
-	print("Equipped %s" % equipment_info.name)
+	_clear_equipment(equipment_info.equipment_slot)
+
+	match equipment_info.equipment_slot:
+		EquipmentInfo.SlotType.RIGHT_HAND:
+			right_hand_equipment = equipment_info
+		EquipmentInfo.SlotType.LEFT_HAND:
+			left_hand_equipment = equipment_info
+		EquipmentInfo.SlotType.LEFT_ARM:
+			left_arm_equipment = equipment_info
+
+	_update_equipment(equipment_info.equipment_slot)
 
 
 func _on_footstep(foot: String) -> void:
