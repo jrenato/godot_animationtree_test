@@ -44,11 +44,11 @@ func swipe(swipe_direction: Vector3) -> void:
 
 
 func swipe_right() -> void:
-	swipe(Vector3.RIGHT)
+	swipe(Vector3.LEFT)
 
 
 func swipe_left() -> void:
-	swipe(Vector3.LEFT)
+	swipe(Vector3.RIGHT)
 
 
 func _on_swipe_finished() -> void:
