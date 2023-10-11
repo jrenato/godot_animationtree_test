@@ -27,6 +27,10 @@ var walk_toggle: bool = false
 var current_combo_state: AttackComboState = AttackComboState.IDLE
 var next_combo_state: AttackComboState = AttackComboState.SLICE
 
+var right_hand_equipment: EquipmentInfo
+var left_hand_equipment: EquipmentInfo
+var left_arm_equipment: EquipmentInfo
+
 # Character Base
 @onready var player_mesh: Node3D = %Knight
 @onready var camera_controller: Node3D = %CameraController
@@ -120,6 +124,8 @@ func _physics_process(delta: float) -> void:
 func _update_character() -> void:
 	class_change_particles.restart()
 
+	_clear_all_equipment()
+
 	player_mesh.visible = false
 	var old_transform: Transform3D = player_mesh.transform
 
@@ -140,6 +146,47 @@ func _update_character() -> void:
 	animation_tree.set_animation_player("../%s/AnimationPlayer" % character_string)
 	animation_tree.active = false
 	animation_tree.active = true
+
+
+func _clear_all_equipment() -> void:
+	_clear_equipment(EquipmentInfo.SlotType.RIGHT_HAND)
+	_clear_equipment(EquipmentInfo.SlotType.LEFT_HAND)
+	_clear_equipment(EquipmentInfo.SlotType.LEFT_ARM)
+
+
+func _clear_equipment(slot_type: EquipmentInfo.SlotType) -> void:
+	match slot_type:
+		EquipmentInfo.SlotType.RIGHT_HAND:
+			var right_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/RightHand")
+			if right_hand:
+				for child in right_hand.get_children():
+					child.queue_free()
+		EquipmentInfo.SlotType.LEFT_HAND:
+			var left_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftHand")
+			if left_hand:
+				for child in left_hand.get_children():
+					child.queue_free()
+		EquipmentInfo.SlotType.LEFT_ARM:
+			var left_arm: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftArm")
+			if left_arm:
+				for child in left_arm.get_children():
+					child.queue_free()
+
+
+func _update_equipment(slot_type: EquipmentInfo.SlotType) -> void:
+	match slot_type:
+		EquipmentInfo.SlotType.RIGHT_HAND:
+			var right_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/RightHand")
+			if right_hand and right_hand_equipment:
+				right_hand.add_child(right_hand_equipment.equipment_scene.instantiate())
+		EquipmentInfo.SlotType.LEFT_HAND:
+			var left_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftHand")
+			if left_hand and left_hand_equipment:
+				left_hand.add_child(left_hand_equipment.equipment_scene.instantiate())
+		EquipmentInfo.SlotType.LEFT_ARM:
+			var left_arm: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftArm")
+			if left_arm and left_arm_equipment:
+				left_arm.add_child(left_arm_equipment.equipment_scene.instantiate())
 
 
 func _on_next_combo_timer_timeout() -> void:
