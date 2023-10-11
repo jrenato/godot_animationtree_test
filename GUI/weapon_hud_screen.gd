@@ -2,8 +2,7 @@ extends CanvasLayer
 
 var viewport_initial_size = Vector2()
 
-var weapons: Array = ["Dagger", "Axe", "Sword", "Crossbow", "Wand", "Staff"]
-var current_weapon: int = 0
+var weapons: Array = ["Sword", "Axe", "Crossbow", "Wand"]
 
 @onready var sub_viewport: SubViewport = $SubViewport
 @onready var panel: Panel = $Panel
@@ -30,16 +29,8 @@ func _root_viewport_size_changed():
 
 
 func _on_weapon_cycle_up() -> void:
-	current_weapon -= 1
-	if current_weapon < 0:
-		current_weapon = weapons.size() - 1
-
 	weapon_hud_scene.swipe_right()
 
 
 func _on_weapon_cycle_down() -> void:
-	current_weapon += 1
-	if current_weapon >= weapons.size():
-		current_weapon = 0
-
 	weapon_hud_scene.swipe_left()

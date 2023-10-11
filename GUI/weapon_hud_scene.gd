@@ -70,4 +70,8 @@ func _on_swipe_finished() -> void:
 		if slot_node.position.x <= -4:
 			slot_node.position.x = (_weapons.size() - 2) * 2
 
+		if slot_node.position.x == 0:
+			var weapon_name: String = slot_node.get_node("PositionNode/WeaponSlot").get_child(0).name
+			Signals.weapon_equipped.emit(weapon_name)
+
 	is_swiping = false

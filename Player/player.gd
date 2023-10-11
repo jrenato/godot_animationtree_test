@@ -44,8 +44,10 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 
 
 func _ready() -> void:
-	run_dust_particles.emitting = false
 	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
+	Signals.weapon_equipped.connect(_on_weapon_equipped)
+
+	run_dust_particles.emitting = false
 
 	state_factory = StateFactory.new()
 	change_state("idle")
@@ -146,6 +148,10 @@ func _on_next_combo_timer_timeout() -> void:
 
 	if current_combo_state == AttackComboState.CHOP:
 		next_combo_state = AttackComboState.STAB
+
+
+func _on_weapon_equipped(weapon_name: String) -> void:
+	print("Equipped %s" % weapon_name)
 
 
 func _on_footstep(foot: String) -> void:
