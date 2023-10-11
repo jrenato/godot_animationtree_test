@@ -47,6 +47,7 @@ shadow_mesh = SubResource("ArrayMesh_yug7x")
 script = ExtResource("1_8i8do")
 name = "Crossbow"
 equipment_type = "Ranged"
+mesh_rotation = Vector3(-90, 0, 0)
 equipment_slot = "RightHand"
 equipment_scene = ExtResource("1_y8omg")
 equipment_mesh = SubResource("ArrayMesh_6gh3j")

@@ -2,6 +2,9 @@ class_name EquipmentInfo extends Resource
 
 @export var name: String
 @export_enum("Slice", "Chop", "Stab", "Ranged", "Spellcast", "Block", "Throw", "Spellbook") var equipment_type: String
+@export var mesh_position: Vector3 = Vector3(0.0, 0.0, 0.0)
+@export var mesh_rotation: Vector3 = Vector3(0.0, 0.0, 0.0)
+@export var mesh_scale: Vector3 = Vector3(1.0, 1.0, 1.0)
 
 # Slice: Sword - attack with left-click
 # Chop: Axe - attack with left-click

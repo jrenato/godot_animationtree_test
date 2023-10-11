@@ -45,7 +45,7 @@ var next_combo_state: AttackComboState = AttackComboState.SLICE
 
 func _ready() -> void:
 	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
-	Signals.weapon_equipped.connect(_on_weapon_equipped)
+	Signals.equipment_equipped.connect(_on_equipment_equipped)
 
 	run_dust_particles.emitting = false
 
@@ -150,8 +150,8 @@ func _on_next_combo_timer_timeout() -> void:
 		next_combo_state = AttackComboState.STAB
 
 
-func _on_weapon_equipped(weapon_name: String) -> void:
-	print("Equipped %s" % weapon_name)
+func _on_equipment_equipped(equipment_info: EquipmentInfo) -> void:
+	print("Equipped %s" % equipment_info.name)
 
 
 func _on_footstep(foot: String) -> void:

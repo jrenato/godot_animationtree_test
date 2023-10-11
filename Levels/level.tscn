@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dmffhkrwsqy7p" path="res://Assets/Textures/Prototypes/Dark/texture_09.png" id="1_41w3j"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_w1pca"]
-[ext_resource type="PackedScene" uid="uid://b67xcsu46s0ua" path="res://GUI/weapon_hud_screen.tscn" id="2_3wd8l"]
+[ext_resource type="PackedScene" uid="uid://b67xcsu46s0ua" path="res://GUI/equipment_hud_screen.tscn" id="2_3wd8l"]
 [ext_resource type="Texture2D" uid="uid://luq606i7ygu6" path="res://Assets/Skies/industrial_sunset_puresky_4k.exr" id="2_gcg70"]
 [ext_resource type="PackedScene" uid="uid://rwalvl851ghq" path="res://Player/player.tscn" id="2_xndlv"]
 [ext_resource type="PackedScene" uid="uid://cvkntulr67ss0" path="res://Objects/barrel.tscn" id="5_vddww"]
