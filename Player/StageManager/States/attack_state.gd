@@ -16,10 +16,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if player.direction:
-		# Update the player direction
-		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
-		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
+	# Use this only if the player can control the camera
+#	if player.direction:
+#		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
+#		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
 
 	# Hack to cut the slow end of Stab animation
 #	if player.animation_tree["parameters/AttackOneShot/active"] and player.current_combo_state == player.AttackComboState.STAB:

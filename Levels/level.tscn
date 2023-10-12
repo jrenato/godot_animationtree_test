@@ -33,7 +33,13 @@ environment = SubResource("Environment_tadsy")
 transform = Transform3D(0.877305, 0.415634, -0.239966, -2.04147e-08, 0.5, 0.866026, 0.479933, -0.759769, 0.438653, 0, 5.73824, 0)
 shadow_enabled = true
 
-[node name="Player" parent="." instance=ExtResource("2_xndlv")]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -5, 8, 5)
+current = true
+
+[node name="Player" parent="." node_paths=PackedStringArray("camera_controller") instance=ExtResource("2_xndlv")]
+transform = Transform3D(0.707106, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707106, 0, 0, 0)
+camera_controller = NodePath("../Camera3D")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

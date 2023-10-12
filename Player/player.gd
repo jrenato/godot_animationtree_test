@@ -10,6 +10,8 @@ const DASH_ACCELERATION: float = 60.0
 
 const JUMP_VELOCITY: float = 300.0
 
+@export var camera_controller: Camera3D
+@export var sensitivity : int = 5
 @export var character_class: CharacterClass = CharacterClass.KNIGHT :
 	set(value):
 		character_class = value
@@ -17,6 +19,7 @@ const JUMP_VELOCITY: float = 300.0
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
+var target_rotation: float
 
 var state_factory: StateFactory
 var state: State
@@ -29,7 +32,6 @@ var left_arm_equipment: EquipmentInfo
 
 # Character Base
 @onready var player_mesh: Node3D = %Knight
-@onready var camera_controller: Node3D = %CameraController
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 # Timers
@@ -60,6 +62,14 @@ func change_state(new_state_name: String) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		var from = camera_controller.project_ray_origin(event.position)
+		var to = from + camera_controller.project_ray_normal(event.position) * 10
+
+		player_mesh.look_at(to, Vector3(0, 1, 0), true)
+		player_mesh.rotation.x = 0
+		player_mesh.rotation.z = 0
+
 	if event.is_action_pressed("walk_toggle"):
 		walk_toggle = !walk_toggle
 
