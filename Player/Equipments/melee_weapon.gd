@@ -1,5 +1,6 @@
 class_name MeleeWeapon extends Area3D
 
+@export var equipment_info: EquipmentInfo
 @export var base_damage: int = 1
 
 var weapon_enabled: bool = false :
