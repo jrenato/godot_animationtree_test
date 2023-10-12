@@ -6,34 +6,28 @@ var player : Player
 func _ready() -> void:
 	player = get_parent()
 
-	# Advances the current combo state to the next state
-	if player.current_combo_state != player.next_combo_state:
-		player.current_combo_state = player.next_combo_state
-
-	# Small hack to cut the animation start and prevent sluggish animation
-	if player.current_combo_state == player.AttackComboState.REVERSE_SLICE:
-		player.animation_tree["parameters/AttackTimeSeek/seek_request"] = 0.4
-	if player.current_combo_state == player.AttackComboState.CHOP:
-		player.animation_tree["parameters/AttackTimeSeek/seek_request"] = 0.3
+#	# Small hack to cut the animation start and prevent sluggish animation
+#	if player.current_combo_state == player.AttackComboState.REVERSE_SLICE:
+#		player.animation_tree["parameters/AttackTimeSeek/seek_request"] = 0.4
+#	if player.current_combo_state == player.AttackComboState.CHOP:
+#		player.animation_tree["parameters/AttackTimeSeek/seek_request"] = 0.3
 
 	player.animation_tree["parameters/AttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	player.next_combo_timer.start()
 
 
 func _process(delta: float) -> void:
 	if player.direction:
+		# Update the player direction
 		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
 		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
 
 	# Hack to cut the slow end of Stab animation
-	if player.animation_tree["parameters/AttackOneShot/active"] and player.current_combo_state == player.AttackComboState.STAB:
-		if player.animation_tree["parameters/AttackStateMachine/playback"].get_current_play_position() >= 0.4:
-			player.animation_tree["parameters/AttackStateMachine/playback"].next()
+#	if player.animation_tree["parameters/AttackOneShot/active"] and player.current_combo_state == player.AttackComboState.STAB:
+#		if player.animation_tree["parameters/AttackStateMachine/playback"].get_current_play_position() >= 0.4:
+#			player.animation_tree["parameters/AttackStateMachine/playback"].next()
 
 	if not player.animation_tree["parameters/AttackOneShot/active"]:
-		# Reset combo if AttackOneShot has ended
-		player.current_combo_state = player.AttackComboState.IDLE
-		player.next_combo_state = player.AttackComboState.SLICE
+		# Attack animation has ended, change to idle
 		player.change_state("idle")
 
 	if Input.is_action_just_pressed("jump"):
@@ -46,15 +40,9 @@ func _process(delta: float) -> void:
 		player.animation_tree["parameters/AttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
 		player.change_state("fall")
 
-	if Input.is_action_just_pressed("attack") and player.animation_tree["parameters/AttackOneShot/active"]:
-		# Repeat attack command if the next combo state is ready (NextComboTimer has timed out)
-		if player.current_combo_state != player.next_combo_state:
-			player.change_state("attack")
-
 	if Input.is_action_just_pressed("dash"):
+		# Abort attack animation and dash
 		player.animation_tree["parameters/AttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
-		player.current_combo_state = player.AttackComboState.IDLE
-		player.next_combo_state = player.AttackComboState.SLICE
 		player.change_state("dash")
 
 

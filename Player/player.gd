@@ -1,7 +1,6 @@
 extends CharacterBody3D
 class_name Player
 
-enum AttackComboState { IDLE, SLICE, REVERSE_SLICE, CHOP, STAB }
 enum CharacterClass { KNIGHT, BARBARIAN, ROGUE, MAGE }
 
 const MAX_SPEED: float = 7.0
@@ -24,9 +23,6 @@ var state: State
 
 var walk_toggle: bool = false
 
-var current_combo_state: AttackComboState = AttackComboState.IDLE
-var next_combo_state: AttackComboState = AttackComboState.SLICE
-
 var right_hand_equipment: EquipmentInfo
 var left_hand_equipment: EquipmentInfo
 var left_arm_equipment: EquipmentInfo
@@ -37,7 +33,6 @@ var left_arm_equipment: EquipmentInfo
 @onready var animation_tree: AnimationTree = %AnimationTree
 
 # Timers
-@onready var next_combo_timer: Timer = %NextComboTimer
 @onready var dash_timer: Timer = %DashTimer
 
 # Particles
@@ -48,8 +43,6 @@ var left_arm_equipment: EquipmentInfo
 
 
 func _ready() -> void:
-	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
-
 	state_factory = StateFactory.new()
 	change_state("idle")
 
@@ -136,14 +129,6 @@ func _update_character() -> void:
 	animation_tree.set_animation_player("../%s/AnimationPlayer" % character_string)
 	animation_tree.active = false
 	animation_tree.active = true
-
-
-func _on_next_combo_timer_timeout() -> void:
-	if current_combo_state == AttackComboState.SLICE:
-		next_combo_state = AttackComboState.CHOP
-
-	if current_combo_state == AttackComboState.CHOP:
-		next_combo_state = AttackComboState.STAB
 
 
 func _on_footstep(foot: String) -> void:
