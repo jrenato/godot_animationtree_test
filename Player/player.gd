@@ -43,6 +43,8 @@ var left_arm_equipment: EquipmentInfo
 
 
 func _ready() -> void:
+	_update_equipment_references()
+
 	state_factory = StateFactory.new()
 	change_state("idle")
 
@@ -149,13 +151,6 @@ func _update_equipment_references() -> void:
 	_update_equipment_for_bone(left_hand, EquipmentInfo.SlotType.LEFT_HAND)
 	_update_equipment_for_bone(left_arm, EquipmentInfo.SlotType.LEFT_ARM)
 
-	if right_hand_equipment:
-		print("Right hand equipment: %s" % right_hand_equipment.name)
-	if left_hand_equipment:
-		print("Left hand equipment: %s" % left_hand_equipment.name)
-	if left_arm_equipment:
-		print("Left arm equipment: %s" % left_arm_equipment.name)
-
 
 func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: EquipmentInfo.SlotType) -> void:
 	if bone_attachment == null:
@@ -163,7 +158,7 @@ func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: Eq
 
 	if bone_attachment.get_child_count() == 1:
 		var equipment_info: EquipmentInfo = bone_attachment.get_child(0).equipment_info as EquipmentInfo
-		if equipment_info.equipment_slot == slot_type:
+		if slot_type in equipment_info.slots:
 			match slot_type:
 				EquipmentInfo.SlotType.RIGHT_HAND:
 					right_hand_equipment = equipment_info

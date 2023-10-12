@@ -6,4 +6,4 @@
 script = ExtResource("1_men8t")
 name = "Dagger"
 equipment_type = "Stab"
-equipment_slot = 0
+slots = Array[int]([0, 1])

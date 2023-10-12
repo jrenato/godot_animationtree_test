@@ -6,4 +6,4 @@
 script = ExtResource("1_tj0am")
 name = "Spellbook"
 equipment_type = "Spellbook"
-equipment_slot = 0
+slots = Array[int]([1])

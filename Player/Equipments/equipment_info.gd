@@ -5,7 +5,7 @@ enum SlotType {RIGHT_HAND, LEFT_HAND, LEFT_ARM}
 @export_group("Equipment")
 @export var name: String
 @export_enum("Slice", "Chop", "Stab", "Ranged", "Spellcast", "Block", "Throw", "Spellbook") var equipment_type: String
-@export var equipment_slot: SlotType
+@export var slots: Array[SlotType] = [SlotType.RIGHT_HAND]
 
 # Equipment Types
 # Left click

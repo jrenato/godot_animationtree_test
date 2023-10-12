@@ -6,4 +6,4 @@
 script = ExtResource("1_fukvu")
 name = "Wand"
 equipment_type = "Spellcast"
-equipment_slot = 0
+slots = Array[int]([0])
