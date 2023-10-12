@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddoa5c4uaiq3l"]
+[gd_scene load_steps=6 format=3 uid="uid://ddoa5c4uaiq3l"]
 
 [ext_resource type="Texture2D" uid="uid://cmjbom3yvym4l" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/mage_texture.png" id="1_3vvuv"]
 [ext_resource type="Script" path="res://Player/Equipments/spellcast_weapon.gd" id="1_m6wn8"]
-[ext_resource type="Resource" uid="uid://ci846l6wxhkrj" path="res://Player/Equipments/Resources/wand.tres" id="2_n7614"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1sl5"]
 resource_name = "mage_texture"
@@ -45,7 +44,6 @@ shadow_mesh = SubResource("ArrayMesh_jau2w")
 
 [node name="Wand" type="Node3D"]
 script = ExtResource("1_m6wn8")
-equipment_info = ExtResource("2_n7614")
 
 [node name="wand2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_aydvf")

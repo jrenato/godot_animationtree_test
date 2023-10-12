@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0d4qky7arxid"]
+[gd_scene load_steps=6 format=3 uid="uid://b0d4qky7arxid"]
 
 [ext_resource type="Texture2D" uid="uid://strem5dsfx5b" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/rogue_texture.png" id="1_qaoyt"]
 [ext_resource type="Script" path="res://Player/Equipments/throwable.gd" id="1_rm1t2"]
-[ext_resource type="Resource" uid="uid://dr8fotm4h0qx6" path="res://Player/Equipments/Resources/bomb.tres" id="2_b8k3g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6wr7"]
 resource_name = "rogue_texture"
@@ -45,7 +44,6 @@ shadow_mesh = SubResource("ArrayMesh_j11qu")
 
 [node name="Bomb" type="Node3D"]
 script = ExtResource("1_rm1t2")
-equipment_info = ExtResource("2_b8k3g")
 
 [node name="smokebomb2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_yj82o")

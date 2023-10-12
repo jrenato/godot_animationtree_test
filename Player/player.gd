@@ -124,51 +124,11 @@ func _update_character() -> void:
 	player_mesh.visible = true
 	player_mesh.transform = old_transform
 
-	_update_animation_tree()
-	_update_equipment_references()
-
-
-func _update_animation_tree() -> void:
 	# Update and restart AnimationTree
 	var character_string: String = CharacterClass.find_key(character_class).to_pascal_case()
 	animation_tree.set_animation_player("../%s/AnimationPlayer" % character_string)
 	animation_tree.active = false
 	animation_tree.active = true
-
-
-func _update_equipment_references() -> void:
-	right_hand_equipment = null
-	left_hand_equipment = null
-	left_arm_equipment = null
-
-	var right_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/RightHand")
-	var left_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftHand")
-	var left_arm: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftArm")
-
-	_update_equipment_for_bone(right_hand, EquipmentInfo.SlotType.RIGHT_HAND)
-	_update_equipment_for_bone(left_hand, EquipmentInfo.SlotType.LEFT_HAND)
-	_update_equipment_for_bone(left_arm, EquipmentInfo.SlotType.LEFT_ARM)
-
-	print("Right hand equipment: %s" % right_hand_equipment)
-	print("Left hand equipment: %s" % left_hand_equipment)
-	print("Left arm equipment: %s" % left_arm_equipment)
-
-
-func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: EquipmentInfo.SlotType) -> void:
-	if bone_attachment == null:
-		return
-
-	if bone_attachment.get_child_count() == 1:
-		print(bone_attachment.get_child(0).equipment_info)
-		var equipment_info: EquipmentInfo = bone_attachment.get_child(0).equipment_info as EquipmentInfo
-		if equipment_info.slot_type == slot_type:
-			match slot_type:
-				EquipmentInfo.SlotType.RIGHT_HAND:
-					right_hand_equipment = equipment_info
-				EquipmentInfo.SlotType.LEFT_HAND:
-					left_hand_equipment = equipment_info
-				EquipmentInfo.SlotType.LEFT_ARM:
-					left_arm_equipment = equipment_info
 
 
 func _on_footstep(foot: String) -> void:

@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctlexrx5h5xg8"]
+[gd_scene load_steps=7 format=3 uid="uid://ctlexrx5h5xg8"]
 
 [ext_resource type="Texture2D" uid="uid://bg1aixxtfvaeo" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/knight_texture.png" id="1_o1jos"]
 [ext_resource type="Script" path="res://Player/Equipments/shield.gd" id="1_v28wj"]
-[ext_resource type="Resource" uid="uid://b7ssna8kqg74e" path="res://Player/Equipments/Resources/shield_round.tres" id="2_kp6aj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_35g8k"]
 resource_name = "knight_texture"
@@ -48,7 +47,6 @@ size = Vector3(1, 1, 0.272235)
 
 [node name="ShieldRound" type="Area3D"]
 script = ExtResource("1_v28wj")
-equipment_info = ExtResource("2_kp6aj")
 
 [node name="shield_round2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_lvujb")

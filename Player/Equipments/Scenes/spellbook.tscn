@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dw4f6xmlncej6"]
+[gd_scene load_steps=9 format=3 uid="uid://dw4f6xmlncej6"]
 
 [ext_resource type="Script" path="res://Player/Equipments/spellbook.gd" id="1_fhyks"]
 [ext_resource type="Texture2D" uid="uid://cmjbom3yvym4l" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/mage_texture.png" id="1_wcok8"]
-[ext_resource type="Resource" uid="uid://b74bsqan6w2hi" path="res://Player/Equipments/Resources/spellbook.tres" id="2_wapqc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_galkq"]
 resource_name = "mage_texture"
@@ -84,7 +83,6 @@ shadow_mesh = SubResource("ArrayMesh_sywig")
 
 [node name="Spellbook" type="Node3D"]
 script = ExtResource("1_fhyks")
-equipment_info = ExtResource("2_wapqc")
 
 [node name="spellbook_open" type="MeshInstance3D" parent="."]
 visible = false

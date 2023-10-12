@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://chqwjv111bytq"]
+[gd_scene load_steps=6 format=3 uid="uid://chqwjv111bytq"]
 
 [ext_resource type="Texture2D" uid="uid://strem5dsfx5b" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/rogue_texture.png" id="1_646j4"]
 [ext_resource type="Script" path="res://Player/Equipments/ranged_weapon.gd" id="1_jjxug"]
-[ext_resource type="Resource" uid="uid://c8pg53o3ut8nu" path="res://Player/Equipments/Resources/crossbow.tres" id="2_olxji"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nwxw7"]
 resource_name = "rogue_texture"
@@ -45,7 +44,6 @@ shadow_mesh = SubResource("ArrayMesh_yug7x")
 
 [node name="Crossbow" type="Node3D"]
 script = ExtResource("1_jjxug")
-equipment_info = ExtResource("2_olxji")
 
 [node name="crossbow_1handed2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_ymacj")

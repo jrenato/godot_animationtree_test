@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfhl2djm3b8me"]
+[gd_scene load_steps=7 format=3 uid="uid://cfhl2djm3b8me"]
 
 [ext_resource type="Script" path="res://Player/Equipments/melee_weapon.gd" id="1_7t8vk"]
-[ext_resource type="Resource" uid="uid://bvorbn0dqwe7q" path="res://Player/Equipments/Resources/axe.tres" id="2_6nig8"]
 [ext_resource type="Texture2D" uid="uid://oq37vgte7e0c" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/barbarian_texture.png" id="2_812ff"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hcfu8"]
@@ -48,7 +47,6 @@ height = 1.64092
 
 [node name="Axe" type="Area3D"]
 script = ExtResource("1_7t8vk")
-equipment_info = ExtResource("2_6nig8")
 
 [node name="axe_1handed2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_g7w4m")
