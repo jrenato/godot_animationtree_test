@@ -49,11 +49,6 @@ var left_arm_equipment: EquipmentInfo
 
 func _ready() -> void:
 	next_combo_timer.timeout.connect(_on_next_combo_timer_timeout)
-	Signals.equipment_equipped.connect(_on_equipment_equipped)
-
-	run_dust_particles.emitting = false
-
-	_clear_all_equipment()
 
 	state_factory = StateFactory.new()
 	change_state("idle")
@@ -84,12 +79,6 @@ func _input(event: InputEvent) -> void:
 			character_class = CharacterClass.size() - 1 as CharacterClass
 		else:
 			character_class = character_class - 1 as CharacterClass
-
-	if event.is_action_pressed("ui_right"):
-		Signals.weapon_cycle_up.emit()
-
-	if event.is_action_pressed("ui_left"):
-		Signals.weapon_cycle_down.emit()
 
 
 func _process(delta: float) -> void:
@@ -126,8 +115,6 @@ func _physics_process(delta: float) -> void:
 func _update_character() -> void:
 	class_change_particles.restart()
 
-	_clear_all_equipment()
-
 	player_mesh.visible = false
 	var old_transform: Transform3D = player_mesh.transform
 
@@ -144,51 +131,11 @@ func _update_character() -> void:
 	player_mesh.visible = true
 	player_mesh.transform = old_transform
 
+	# Update and restart AnimationTree
 	var character_string: String = CharacterClass.find_key(character_class).to_pascal_case()
 	animation_tree.set_animation_player("../%s/AnimationPlayer" % character_string)
 	animation_tree.active = false
 	animation_tree.active = true
-
-
-func _clear_all_equipment() -> void:
-	_clear_equipment(EquipmentInfo.SlotType.RIGHT_HAND)
-	_clear_equipment(EquipmentInfo.SlotType.LEFT_HAND)
-	_clear_equipment(EquipmentInfo.SlotType.LEFT_ARM)
-
-
-func _clear_equipment(slot_type: EquipmentInfo.SlotType) -> void:
-	match slot_type:
-		EquipmentInfo.SlotType.RIGHT_HAND:
-			var right_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/RightHand")
-			if right_hand:
-				for child in right_hand.get_children():
-					child.queue_free()
-		EquipmentInfo.SlotType.LEFT_HAND:
-			var left_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftHand")
-			if left_hand:
-				for child in left_hand.get_children():
-					child.queue_free()
-		EquipmentInfo.SlotType.LEFT_ARM:
-			var left_arm: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftArm")
-			if left_arm:
-				for child in left_arm.get_children():
-					child.queue_free()
-
-
-func _update_equipment(slot_type: EquipmentInfo.SlotType) -> void:
-	match slot_type:
-		EquipmentInfo.SlotType.RIGHT_HAND:
-			var right_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/RightHand")
-			if right_hand and right_hand_equipment:
-				right_hand.add_child(right_hand_equipment.equipment_scene.instantiate())
-		EquipmentInfo.SlotType.LEFT_HAND:
-			var left_hand: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftHand")
-			if left_hand and left_hand_equipment:
-				left_hand.add_child(left_hand_equipment.equipment_scene.instantiate())
-		EquipmentInfo.SlotType.LEFT_ARM:
-			var left_arm: BoneAttachment3D = player_mesh.get_node("Rig/Skeleton3D/LeftArm")
-			if left_arm and left_arm_equipment:
-				left_arm.add_child(left_arm_equipment.equipment_scene.instantiate())
 
 
 func _on_next_combo_timer_timeout() -> void:
@@ -197,20 +144,6 @@ func _on_next_combo_timer_timeout() -> void:
 
 	if current_combo_state == AttackComboState.CHOP:
 		next_combo_state = AttackComboState.STAB
-
-
-func _on_equipment_equipped(equipment_info: EquipmentInfo) -> void:
-	_clear_equipment(equipment_info.equipment_slot)
-
-	match equipment_info.equipment_slot:
-		EquipmentInfo.SlotType.RIGHT_HAND:
-			right_hand_equipment = equipment_info
-		EquipmentInfo.SlotType.LEFT_HAND:
-			left_hand_equipment = equipment_info
-		EquipmentInfo.SlotType.LEFT_ARM:
-			left_arm_equipment = equipment_info
-
-	_update_equipment(equipment_info.equipment_slot)
 
 
 func _on_footstep(foot: String) -> void:
