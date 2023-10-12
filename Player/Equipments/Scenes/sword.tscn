@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1upgl0bcnoeg"]
+[gd_scene load_steps=8 format=3 uid="uid://c1upgl0bcnoeg"]
 
 [ext_resource type="Script" path="res://Player/Equipments/melee_weapon.gd" id="1_go0il"]
+[ext_resource type="Resource" uid="uid://c6fe2uy45132j" path="res://Player/Equipments/Resources/sword.tres" id="2_3qfx8"]
 [ext_resource type="Texture2D" uid="uid://bg1aixxtfvaeo" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/knight_texture.png" id="2_gkr3j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftfw6"]
@@ -48,6 +49,7 @@ height = 1.14236
 
 [node name="Sword" type="Area3D"]
 script = ExtResource("1_go0il")
+equipment_info = ExtResource("2_3qfx8")
 
 [node name="sword_1handed2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_d6hss")

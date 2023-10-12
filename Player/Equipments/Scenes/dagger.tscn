@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://l6611qkyiss8"]
+[gd_scene load_steps=8 format=3 uid="uid://l6611qkyiss8"]
 
 [ext_resource type="Script" path="res://Player/Equipments/melee_weapon.gd" id="1_00s7l"]
 [ext_resource type="Texture2D" uid="uid://strem5dsfx5b" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/rogue_texture.png" id="1_mnbcq"]
+[ext_resource type="Resource" uid="uid://y7odlxphch34" path="res://Player/Equipments/Resources/dagger.tres" id="2_drih6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hhq7"]
 resource_name = "rogue_texture"
@@ -48,6 +49,7 @@ height = 1.24383
 
 [node name="Dagger" type="Area3D"]
 script = ExtResource("1_00s7l")
+equipment_info = ExtResource("2_drih6")
 
 [node name="dagger2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_v06a8")
