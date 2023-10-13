@@ -19,7 +19,7 @@ const JUMP_VELOCITY: float = 300.0
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
-var target_rotation: float
+var target_look_position: Vector3
 
 var state_factory: StateFactory
 var state: State
@@ -62,13 +62,16 @@ func change_state(new_state_name: String) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		var from = camera_controller.project_ray_origin(event.position)
-		var to = from + camera_controller.project_ray_normal(event.position) * 10
-
-		player_mesh.look_at(to, Vector3(0, 1, 0), true)
-		player_mesh.rotation.x = 0
-		player_mesh.rotation.z = 0
+#	if event is InputEventMouseMotion:
+#		var ray_from = camera_controller.project_ray_origin(event.position)
+#		var ray_to = ray_from + camera_controller.project_ray_normal(event.position) * 1000
+#		var query: = PhysicsRayQueryParameters3D.create(ray_from, ray_to)
+#
+#		var intersection = get_world_3d().direct_space_state.intersect_ray(query)
+#		if intersection:
+#			target_look_position = intersection["position"]
+#		else:
+#			target_look_position = ray_to
 
 	if event.is_action_pressed("walk_toggle"):
 		walk_toggle = !walk_toggle

@@ -8,10 +8,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# Use this only if the player can control the camera
-#	if player.direction:
-#		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
-#		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
+	if player.direction:
+		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
+		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
 
 	if player.is_on_floor():
 		player.change_state("idle")

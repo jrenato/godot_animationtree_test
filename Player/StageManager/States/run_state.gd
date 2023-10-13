@@ -13,12 +13,11 @@ func exit() -> void:
 
 
 func _process(delta: float) -> void:
-	# Use this only if the player can control the camera
-#	if player.direction:
-#		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
-#		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
-#	else:
-#		player.change_state("idle")
+	if player.direction:
+		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
+		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
+	else:
+		player.change_state("idle")
 
 	var player_speed: float = player.velocity.length() / player.MAX_SPEED
 	# Comparing to 0.31 for a safety margin
