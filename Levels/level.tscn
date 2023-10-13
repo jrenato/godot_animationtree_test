@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsjc1js6xo7ak"]
+[gd_scene load_steps=11 format=3 uid="uid://bsjc1js6xo7ak"]
 
 [ext_resource type="Texture2D" uid="uid://dmffhkrwsqy7p" path="res://Assets/Textures/Prototypes/Dark/texture_09.png" id="1_41w3j"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_w1pca"]
 [ext_resource type="Texture2D" uid="uid://luq606i7ygu6" path="res://Assets/Skies/industrial_sunset_puresky_4k.exr" id="2_gcg70"]
 [ext_resource type="PackedScene" uid="uid://rwalvl851ghq" path="res://Player/player.tscn" id="2_xndlv"]
 [ext_resource type="PackedScene" uid="uid://cvkntulr67ss0" path="res://Objects/barrel.tscn" id="5_vddww"]
+[ext_resource type="PackedScene" uid="uid://dal4im6juhro3" path="res://Levels/level_camera.tscn" id="6_4qiaf"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u53lb"]
 panorama = ExtResource("2_gcg70")
@@ -33,13 +34,11 @@ environment = SubResource("Environment_tadsy")
 transform = Transform3D(0.877305, 0.415634, -0.239966, -2.04147e-08, 0.5, 0.866026, 0.479933, -0.759769, 0.438653, 0, 5.73824, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -5, 8, 5)
-current = true
+[node name="LevelCamera" parent="." node_paths=PackedStringArray("player") instance=ExtResource("6_4qiaf")]
+player = NodePath("../Player")
 
-[node name="Player" parent="." node_paths=PackedStringArray("camera_controller") instance=ExtResource("2_xndlv")]
+[node name="Player" parent="." instance=ExtResource("2_xndlv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-camera_controller = NodePath("../Camera3D")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)

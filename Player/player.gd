@@ -1,5 +1,4 @@
-extends CharacterBody3D
-class_name Player
+class_name Player extends CharacterBody3D
 
 enum CharacterClass { KNIGHT, BARBARIAN, ROGUE, MAGE }
 
@@ -10,13 +9,13 @@ const DASH_ACCELERATION: float = 60.0
 
 const JUMP_VELOCITY: float = 300.0
 
-@export var camera_controller: Camera3D
 @export var sensitivity : int = 5
 @export var character_class: CharacterClass = CharacterClass.KNIGHT :
 	set(value):
 		character_class = value
 		_update_character()
 
+var camera_controller: Camera3D
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
 var target_look_position: Vector3

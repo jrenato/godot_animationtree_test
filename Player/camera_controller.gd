@@ -4,9 +4,10 @@ extends Node3D
 @export var max_zoom : float = 8.0
 @export var min_zoom : float = 2.0
 
+var desired_zoom : float = 0.0
+
 @onready var spring_arm: SpringArm3D = %SpringArm3D
 
-var desired_zoom : float = 0.0
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
