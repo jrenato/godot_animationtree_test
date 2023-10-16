@@ -38,6 +38,7 @@ shadow_enabled = true
 player = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("2_xndlv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
