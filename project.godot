@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="AnimationTree Test"
-config/description="A small animation tree test made in Godot 4.2"
+config/description="An AnimationTree test made in Godot"
 run/main_scene="res://Levels/level.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 run/max_fps=60
