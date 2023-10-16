@@ -15,7 +15,7 @@ func _process(delta: float) -> void:
 	if player.is_on_floor():
 		player.change_state("idle")
 
-	if Input.is_action_just_pressed("attack"):
+	if player.is_attacking:
 		player.change_state("jump_attack")
 
 

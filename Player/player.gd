@@ -23,6 +23,14 @@ var target_look_position: Vector3
 var state_factory: StateFactory
 var state: State
 
+# Holding the attack button
+var is_attacking: bool = false
+# Action button
+# * Knight: holds the shield and prepares for bash
+# * Barbarian: drinks beer for self-healing
+# * Rogue: aims crossbow
+# * Mage: opens spellbook and start spell selection
+var is_holding_secondary_action: bool = false
 var walk_toggle: bool = false
 
 var right_hand_equipment: EquipmentInfo
@@ -74,6 +82,18 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("walk_toggle"):
 		walk_toggle = !walk_toggle
+
+	if event.is_action_pressed("attack"):
+		is_attacking = true
+
+	if event.is_action_released("attack"):
+		is_attacking = false
+
+	if event.is_action_pressed("secondary_action"):
+		is_holding_secondary_action = true
+
+	if event.is_action_released("secondary_action"):
+		is_holding_secondary_action = false
 
 	if event.is_action_pressed("ui_page_up"):
 		if character_class >= CharacterClass.size() - 1:
