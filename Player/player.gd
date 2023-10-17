@@ -31,6 +31,8 @@ var is_attacking: bool = false
 # * Rogue: aims crossbow
 # * Mage: opens spellbook and start spell selection
 var is_holding_secondary_action: bool = false
+# Check if the mouse button is being used
+var locked_with_mouse_button: bool = false
 var walk_toggle: bool = false
 
 var right_hand_equipment: EquipmentInfo
@@ -95,17 +97,6 @@ func is_dual_wielding() -> bool:
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		var ray_from = camera_controller.project_ray_origin(event.position)
-		var ray_to = ray_from + camera_controller.project_ray_normal(event.position) * 1000
-		var query: = PhysicsRayQueryParameters3D.create(ray_from, ray_to)
-
-		var intersection = get_world_3d().direct_space_state.intersect_ray(query)
-		if intersection:
-			target_look_position = intersection["position"]
-		else:
-			target_look_position = ray_to
-
 	if event.is_action_pressed("walk_toggle"):
 		walk_toggle = !walk_toggle
 
@@ -117,9 +108,12 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("secondary_action"):
 		is_holding_secondary_action = true
+		if event is InputEventMouseButton:
+			locked_with_mouse_button = true
 
 	if event.is_action_released("secondary_action"):
 		is_holding_secondary_action = false
+		locked_with_mouse_button = false
 
 	if event.is_action_pressed("ui_page_up"):
 		if character_class >= CharacterClass.size() - 1:
@@ -135,7 +129,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	look_sphere.global_position = target_look_position
+	if locked_with_mouse_button:
+		update_mouse_direction_lock()
+		look_sphere.global_position = target_look_position
 
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
@@ -155,6 +151,22 @@ func _process(delta: float) -> void:
 	direction.y = 0.0
 
 	animation_tree["parameters/MovementStateMachine/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
+
+
+func update_mouse_direction_lock() -> void:
+	var mouse_position: Vector2 = get_viewport().get_mouse_position()
+	var ray_from: Vector3 = camera_controller.project_ray_origin(mouse_position)
+	var ray_to: Vector3 = ray_from + camera_controller.project_ray_normal(mouse_position) * camera_controller.global_position.distance_to(global_position)
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_from, ray_to)
+
+	var intersection = get_world_3d().direct_space_state.intersect_ray(query)
+	if intersection:
+		target_look_position = intersection["position"]
+	else:
+		target_look_position = ray_to
+		target_look_position.y = position.y
+
+	target_look_position = (target_look_position - position).normalized() + position
 
 
 func _physics_process(delta: float) -> void:
