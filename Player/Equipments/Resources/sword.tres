@@ -6,4 +6,4 @@
 script = ExtResource("3_gukwe")
 name = "Sword"
 equipment_type = 0
-slots = Array[int]([0])
+slots = Array[int]([0, 1])

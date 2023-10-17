@@ -68,6 +68,30 @@ func change_state(new_state_name: String) -> void:
 	add_child(state)
 
 
+func is_single_wielding() -> bool:
+	if right_hand_equipment == null:
+		# No equipment in right hand? Can't be single wielding
+		return false
+
+	if left_hand_equipment == null:
+		# No equipment in left hand? Definitely single wielding
+		return true
+
+	# Holding two equipments?
+	# Only single wielding if they belong to different types
+	return right_hand_equipment.equipment_type != left_hand_equipment.equipment_type
+
+
+func is_dual_wielding() -> bool:
+	if right_hand_equipment == null:
+		return false
+	
+	if left_hand_equipment == null:
+		return false
+
+	return right_hand_equipment.equipment_type == left_hand_equipment.equipment_type
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		var ray_from = camera_controller.project_ray_origin(event.position)
@@ -183,26 +207,23 @@ func _update_equipment_references() -> void:
 	_update_equipment_for_bone(left_hand, EquipmentInfo.SlotType.LEFT_HAND)
 	_update_equipment_for_bone(left_arm, EquipmentInfo.SlotType.LEFT_ARM)
 
-	print(right_hand_equipment.get_equipment_type())
-
 
 func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: EquipmentInfo.SlotType) -> void:
 	if bone_attachment == null:
 		return
 
-	if bone_attachment.get_child_count() > 0:
-		for equipment in bone_attachment.get_children():
-			if equipment.visible:
-				var equipment_info: EquipmentInfo = equipment.equipment_info as EquipmentInfo
-				if slot_type in equipment_info.slots:
-					match slot_type:
-						EquipmentInfo.SlotType.RIGHT_HAND:
-							right_hand_equipment = equipment_info
-						EquipmentInfo.SlotType.LEFT_HAND:
-							left_hand_equipment = equipment_info
-						EquipmentInfo.SlotType.LEFT_ARM:
-							left_arm_equipment = equipment_info
-				return
+	for equipment in bone_attachment.get_children():
+		if equipment.visible:
+			var equipment_info: EquipmentInfo = equipment.equipment_info as EquipmentInfo
+			if slot_type in equipment_info.slots:
+				match slot_type:
+					EquipmentInfo.SlotType.RIGHT_HAND:
+						right_hand_equipment = equipment_info
+					EquipmentInfo.SlotType.LEFT_HAND:
+						left_hand_equipment = equipment_info
+					EquipmentInfo.SlotType.LEFT_ARM:
+						left_arm_equipment = equipment_info
+			return
 
 
 func _on_footstep(foot: String) -> void:
