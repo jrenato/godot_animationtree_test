@@ -21,9 +21,3 @@ enum EquipmentType {
 # * Block: Shield - blocks
 # * Throw: Bomb - throws
 # * Spellbook: selects spell
-
-# TODO: Check possible null return for String return
-func get_equipment_type() -> Variant:
-	if equipment_type != null:
-		return EquipmentType.keys()[equipment_type]
-	return null
