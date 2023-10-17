@@ -50,6 +50,8 @@ var left_arm_equipment: EquipmentInfo
 @onready var dash_dust_particles: GPUParticles3D = %DashDustParticles
 @onready var class_change_particles: GPUParticles3D = %ClassChangeParticles
 
+@onready var look_sphere: MeshInstance3D = %LookSphere
+
 
 func _ready() -> void:
 	_update_equipment_references()
@@ -133,6 +135,8 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
+	look_sphere.global_position = target_look_position
+
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	# TODO: Limit input while in AimState as well
