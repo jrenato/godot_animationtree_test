@@ -135,7 +135,8 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
-	if walk_toggle:
+	# TODO: Limit input while in AimState as well
+	if walk_toggle or state is BlockState:
 		# To be able to walk while using a keyboard
 		raw_input.x = raw_input.x * 0.3
 		raw_input.y = raw_input.y * 0.3
