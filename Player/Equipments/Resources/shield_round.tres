@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_d5nkw")
 name = "Round Shield"
-equipment_type = "Block"
+equipment_type = 5
 slots = Array[int]([2])

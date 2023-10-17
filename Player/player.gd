@@ -183,21 +183,26 @@ func _update_equipment_references() -> void:
 	_update_equipment_for_bone(left_hand, EquipmentInfo.SlotType.LEFT_HAND)
 	_update_equipment_for_bone(left_arm, EquipmentInfo.SlotType.LEFT_ARM)
 
+	print(right_hand_equipment.get_equipment_type())
+
 
 func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: EquipmentInfo.SlotType) -> void:
 	if bone_attachment == null:
 		return
 
-	if bone_attachment.get_child_count() == 1:
-		var equipment_info: EquipmentInfo = bone_attachment.get_child(0).equipment_info as EquipmentInfo
-		if slot_type in equipment_info.slots:
-			match slot_type:
-				EquipmentInfo.SlotType.RIGHT_HAND:
-					right_hand_equipment = equipment_info
-				EquipmentInfo.SlotType.LEFT_HAND:
-					left_hand_equipment = equipment_info
-				EquipmentInfo.SlotType.LEFT_ARM:
-					left_arm_equipment = equipment_info
+	if bone_attachment.get_child_count() > 0:
+		for equipment in bone_attachment.get_children():
+			if equipment.visible:
+				var equipment_info: EquipmentInfo = equipment.equipment_info as EquipmentInfo
+				if slot_type in equipment_info.slots:
+					match slot_type:
+						EquipmentInfo.SlotType.RIGHT_HAND:
+							right_hand_equipment = equipment_info
+						EquipmentInfo.SlotType.LEFT_HAND:
+							left_hand_equipment = equipment_info
+						EquipmentInfo.SlotType.LEFT_ARM:
+							left_arm_equipment = equipment_info
+				return
 
 
 func _on_footstep(foot: String) -> void:

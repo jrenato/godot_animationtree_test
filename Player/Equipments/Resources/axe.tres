@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_esswu")
 name = "Axe"
-equipment_type = "Chop"
+equipment_type = 0
 slots = Array[int]([0, 1])

@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_tj0am")
 name = "Spellbook"
-equipment_type = "Spellbook"
+equipment_type = 7
 slots = Array[int]([1])

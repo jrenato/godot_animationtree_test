@@ -1,10 +1,13 @@
 class_name EquipmentInfo extends Resource
 
-enum SlotType {RIGHT_HAND, LEFT_HAND, LEFT_ARM}
+enum SlotType { RIGHT_HAND, LEFT_HAND, LEFT_ARM }
+enum EquipmentType {
+	SLICE, CHOP, STAB, RANGED, SPELLCAST, BLOCK, THROW, SPELLBOOK
+}
 
 @export_group("Equipment")
 @export var name: String
-@export_enum("Slice", "Chop", "Stab", "Ranged", "Spellcast", "Block", "Throw", "Spellbook") var equipment_type: String
+@export var equipment_type: EquipmentType
 @export var slots: Array[SlotType] = [SlotType.RIGHT_HAND]
 
 # Equipment Types
@@ -18,3 +21,9 @@ enum SlotType {RIGHT_HAND, LEFT_HAND, LEFT_ARM}
 # * Block: Shield - blocks
 # * Throw: Bomb - throws
 # * Spellbook: selects spell
+
+# TODO: Check possible null return for String return
+func get_equipment_type() -> Variant:
+	if equipment_type != null:
+		return EquipmentType.keys()[equipment_type]
+	return null

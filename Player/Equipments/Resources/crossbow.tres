@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_8i8do")
 name = "Crossbow"
-equipment_type = "Ranged"
+equipment_type = 3
 slots = Array[int]([0])

@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_fukvu")
 name = "Wand"
-equipment_type = "Spellcast"
+equipment_type = 4
 slots = Array[int]([0])
