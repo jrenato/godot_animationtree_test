@@ -134,6 +134,12 @@ func _process(delta: float) -> void:
 		look_sphere.global_position = target_look_position
 
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
+
+	if look_input != Vector2.ZERO:
+		target_look_position.x = global_position.x + look_input.x
+		target_look_position.z = global_position.z + look_input.y
+		look_sphere.global_position = target_look_position
 
 	# TODO: Limit input while in AimState as well
 	if walk_toggle or state is BlockState:
