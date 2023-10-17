@@ -9,6 +9,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	player.player_mesh.look_at(player.target_look_position, Vector3(0, 1, 0), true)
+	player.player_mesh.rotation.x = 0.0
+	player.player_mesh.rotation.z = 0.0
 
 	if not player.is_holding_secondary_action:
 		player.change_state("idle")
