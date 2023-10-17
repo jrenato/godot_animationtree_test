@@ -5,6 +5,7 @@ var player : Player
 
 func _ready() -> void:
 	player = get_parent()
+	player.animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
 func _process(delta: float) -> void:
