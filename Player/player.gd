@@ -52,7 +52,9 @@ var left_arm_equipment: EquipmentInfo
 @onready var dash_dust_particles: GPUParticles3D = %DashDustParticles
 @onready var class_change_particles: GPUParticles3D = %ClassChangeParticles
 
-@onready var look_sphere: MeshInstance3D = %LookSphere
+@onready var look_pivot: Node3D = %LookPivot
+@onready var look_point: Node3D = %LookPoint
+
 
 
 func _ready() -> void:
@@ -131,17 +133,17 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if locked_with_mouse_button:
 		update_mouse_direction_lock()
-		look_sphere.global_position = target_look_position
+		look_pivot.look_at(target_look_position, Vector3.UP, true)
+	else:
+		var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
+		if look_input != Vector2.ZERO:
+			target_look_position.x = global_position.x + look_input.x
+			target_look_position.z = global_position.z + look_input.y
+			look_pivot.look_at(target_look_position)
 
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
 
-	if look_input != Vector2.ZERO:
-		target_look_position.x = global_position.x + look_input.x
-		target_look_position.z = global_position.z + look_input.y
-		look_sphere.global_position = target_look_position
-
-	# TODO: Limit input while in AimState as well
+	# TODO: Limit input while in AimState and SpellSelect as well
 	if walk_toggle or state is BlockState:
 		# To be able to walk while using a keyboard
 		raw_input.x = raw_input.x * 0.3
