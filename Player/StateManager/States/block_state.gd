@@ -1,7 +1,7 @@
 class_name BlockState extends State
 
-const BASH_MAX_SPEED: float = 3.0
-const BASH_ACCELERATION: float = 10.0
+const BASH_MAX_SPEED: float = 5.0
+const BASH_ACCELERATION: float = 12.0
 
 var player : Player
 var bash_direction: Vector3
@@ -15,11 +15,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	player.update_locked_direction()
-	if player.target_look_position:
-		player.player_mesh.look_at(player.target_look_position, Vector3(0, 1, 0), true)
-
-	player.player_mesh.rotation.x = 0.0
-	player.player_mesh.rotation.z = 0.0
 
 	if is_bashing and player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_node() != "Bash Attack":
 		is_bashing = false

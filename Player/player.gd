@@ -16,7 +16,6 @@ const JUMP_VELOCITY: float = 300.0
 var camera_controller: Camera3D
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var direction: Vector3
-var target_look_position: Vector3
 
 var state_factory: StateFactory
 var state: State
@@ -178,13 +177,20 @@ func can_bash_attack() -> bool:
 func update_locked_direction() -> void:
 	if locked_with_mouse_button:
 		_update_mouse_direction_lock()
-		look_pivot.look_at(target_look_position, Vector3.UP, true)
 	else:
+		_update_gamepad_direction_lock()
+
+	var align = player_mesh.transform.looking_at(look_point.global_position - player_mesh.global_position, Vector3.UP, true)
+	player_mesh.transform = player_mesh.transform.interpolate_with(align, 0.2)
+	player_mesh.rotation.x = 0.0
+	player_mesh.rotation.z = 0.0
+
+
+func _update_gamepad_direction_lock() -> void:
 		var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
 		if look_input != Vector2.ZERO:
-			target_look_position.x = global_position.x + look_input.x
-			target_look_position.z = global_position.z + look_input.y
-			look_pivot.look_at(target_look_position)
+			var target_look: Vector3 = Vector3(global_position.x + look_input.x, 0.0, global_position.z + look_input.y)
+			look_pivot.look_at(target_look, Vector3.UP, true)
 
 
 func _update_mouse_direction_lock() -> void:
@@ -195,12 +201,11 @@ func _update_mouse_direction_lock() -> void:
 
 	var intersection = get_world_3d().direct_space_state.intersect_ray(query)
 	if intersection:
-		target_look_position = intersection["position"]
+		look_pivot.look_at(intersection["position"], Vector3.UP, true)
 	else:
-		target_look_position = ray_to
-		target_look_position.y = position.y
-
-	target_look_position = (target_look_position - position).normalized() + position
+		var target_look: Vector3 = ray_to
+		target_look.y = position.y
+		look_pivot.look_at(target_look, Vector3.UP, true)
 
 
 func _update_character() -> void:
