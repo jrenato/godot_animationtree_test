@@ -45,6 +45,7 @@ var left_arm_equipment: EquipmentInfo
 
 # Timers
 @onready var dash_timer: Timer = %DashTimer
+@onready var bash_recharge_timer: Timer = %BashRechargeTimer
 
 # Particles
 @onready var run_dust_particles: GPUParticles3D = %RunDustParticles
@@ -97,16 +98,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(delta: float) -> void:
-	if locked_with_mouse_button:
-		_update_mouse_direction_lock()
-		look_pivot.look_at(target_look_position, Vector3.UP, true)
-	else:
-		var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
-		if look_input != Vector2.ZERO:
-			target_look_position.x = global_position.x + look_input.x
-			target_look_position.z = global_position.z + look_input.y
-			look_pivot.look_at(target_look_position)
-
 	var raw_input: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	# TODO: Limit input while in AimState and SpellSelect as well
@@ -177,6 +168,25 @@ func can_block() -> bool:
 		return false
 
 	return left_arm_equipment.equipment_type == EquipmentInfo.EquipmentType.BLOCK
+
+
+func can_bash_attack() -> bool:
+	if not can_block:
+		return false
+
+	return bash_recharge_timer.is_stopped()
+
+
+func update_locked_direction() -> void:
+	if locked_with_mouse_button:
+		_update_mouse_direction_lock()
+		look_pivot.look_at(target_look_position, Vector3.UP, true)
+	else:
+		var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
+		if look_input != Vector2.ZERO:
+			target_look_position.x = global_position.x + look_input.x
+			target_look_position.z = global_position.z + look_input.y
+			look_pivot.look_at(target_look_position)
 
 
 func _update_mouse_direction_lock() -> void:

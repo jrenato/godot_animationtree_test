@@ -17,6 +17,7 @@ func exit() -> void:
 	player.dash_timer.stop()
 	player.dash_dust_particles.emitting = false
 
+
 func _process(delta: float) -> void:
 	if not player.is_on_floor():
 		player.change_state("fall")
@@ -31,8 +32,8 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-		player.velocity.x = move_toward(player.velocity.x, dash_direction.x * player.DASH_MAX_SPEED, player.DASH_ACCELERATION * delta)
-		player.velocity.z = move_toward(player.velocity.z, dash_direction.z * player.DASH_MAX_SPEED, player.DASH_ACCELERATION * delta)
+	player.velocity.x = move_toward(player.velocity.x, dash_direction.x * player.DASH_MAX_SPEED, player.DASH_ACCELERATION * delta)
+	player.velocity.z = move_toward(player.velocity.z, dash_direction.z * player.DASH_MAX_SPEED, player.DASH_ACCELERATION * delta)
 
 
 func _on_dash_timer_timeout() -> void:
