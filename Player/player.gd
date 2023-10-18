@@ -64,40 +64,6 @@ func _ready() -> void:
 	change_state("idle")
 
 
-func change_state(new_state_name: String) -> void:
-	if state != null:
-		state.exit()
-		state.queue_free()
-
-	state = state_factory.get_state(new_state_name).new()
-	state.name = new_state_name
-	add_child(state)
-
-
-func is_single_wielding() -> bool:
-	if right_hand_equipment == null:
-		# No equipment in right hand? Can't be single wielding
-		return false
-
-	if left_hand_equipment == null:
-		# No equipment in left hand? Definitely single wielding
-		return true
-
-	# Holding two equipments?
-	# Only single wielding if they belong to different types
-	return right_hand_equipment.equipment_type != left_hand_equipment.equipment_type
-
-
-func is_dual_wielding() -> bool:
-	if right_hand_equipment == null:
-		return false
-	
-	if left_hand_equipment == null:
-		return false
-
-	return right_hand_equipment.equipment_type == left_hand_equipment.equipment_type
-
-
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("walk_toggle"):
 		walk_toggle = !walk_toggle
@@ -132,7 +98,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	if locked_with_mouse_button:
-		update_mouse_direction_lock()
+		_update_mouse_direction_lock()
 		look_pivot.look_at(target_look_position, Vector3.UP, true)
 	else:
 		var look_input: Vector2 = Input.get_vector("look_left", "look_right", "look_up", "look_down", 0.8)
@@ -161,7 +127,59 @@ func _process(delta: float) -> void:
 	animation_tree["parameters/MovementStateMachine/IdleRun/blend_position"].y = velocity.length() / MAX_SPEED
 
 
-func update_mouse_direction_lock() -> void:
+func _physics_process(delta: float) -> void:
+	move_and_slide()
+
+	# TODO: Study if this kind of physics simulation can be improved
+	for collision_index in get_slide_collision_count():
+		var collision: KinematicCollision3D = get_slide_collision(collision_index)
+		if collision.get_collider() is RigidBody3D:
+			collision.get_collider().apply_central_impulse(-collision.get_normal() * 0.5)
+			#collision.get_collider().apply_impulse(-collision.get_normal() * 0.01, collision.get_position())
+
+
+func change_state(new_state_name: String) -> void:
+	if state != null:
+		state.exit()
+		state.queue_free()
+
+	state = state_factory.get_state(new_state_name).new()
+	state.name = new_state_name
+	add_child(state)
+
+
+func is_single_wielding() -> bool:
+	if right_hand_equipment == null:
+		# No equipment in right hand? Can't be single wielding
+		return false
+
+	if left_hand_equipment == null:
+		# No equipment in left hand? Definitely single wielding
+		return true
+
+	# Holding two equipments?
+	# Only single wielding if they belong to different types
+	return right_hand_equipment.equipment_type != left_hand_equipment.equipment_type
+
+
+func is_dual_wielding() -> bool:
+	if right_hand_equipment == null:
+		return false
+	
+	if left_hand_equipment == null:
+		return false
+
+	return right_hand_equipment.equipment_type == left_hand_equipment.equipment_type
+
+
+func can_block() -> bool:
+	if not left_arm_equipment:
+		return false
+
+	return left_arm_equipment.equipment_type == EquipmentInfo.EquipmentType.BLOCK
+
+
+func _update_mouse_direction_lock() -> void:
 	var mouse_position: Vector2 = get_viewport().get_mouse_position()
 	var ray_from: Vector3 = camera_controller.project_ray_origin(mouse_position)
 	var ray_to: Vector3 = ray_from + camera_controller.project_ray_normal(mouse_position) * camera_controller.global_position.distance_to(global_position)
@@ -175,17 +193,6 @@ func update_mouse_direction_lock() -> void:
 		target_look_position.y = position.y
 
 	target_look_position = (target_look_position - position).normalized() + position
-
-
-func _physics_process(delta: float) -> void:
-	move_and_slide()
-
-	# TODO: Study if this kind of physics simulation can be improved
-	for collision_index in get_slide_collision_count():
-		var collision: KinematicCollision3D = get_slide_collision(collision_index)
-		if collision.get_collider() is RigidBody3D:
-			collision.get_collider().apply_central_impulse(-collision.get_normal() * 0.5)
-			#collision.get_collider().apply_impulse(-collision.get_normal() * 0.01, collision.get_position())
 
 
 func _update_character() -> void:
