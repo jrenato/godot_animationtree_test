@@ -186,6 +186,10 @@ func can_bash_attack() -> bool:
 	return bash_recharge_timer.is_stopped()
 
 
+func shoot() -> void:
+	print("Shoot!")
+
+
 func update_locked_direction() -> void:
 	if locked_with_mouse_button:
 		_update_mouse_direction_lock()

@@ -20,8 +20,13 @@ func _process(delta: float) -> void:
 	if not player.is_on_floor():
 		player.change_state("fall")
 
+	# Hack to cut the animation short (the animation fires four arrows)
+#	if player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_node() == "Shooting":
+#		if player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_play_position() >= 0.4:
+#			player.animation_tree["parameters/BlockAimStateMachine/playback"].next()
+
 	if player.is_attacking:
-		# TODO: Shoot!
+		# Not needed. Handled by the AnimationTree and AnimationPlayer
 		pass
 
 
