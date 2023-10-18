@@ -74,11 +74,16 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("secondary_action"):
 		is_holding_secondary_action = true
+		_update_character_secondary_action(true)
+		_update_equipment_references()
+
 		if event is InputEventMouseButton:
 			locked_with_mouse_button = true
 
 	if event.is_action_released("secondary_action"):
 		is_holding_secondary_action = false
+		_update_character_secondary_action(false)
+		_update_equipment_references()
 		locked_with_mouse_button = false
 
 	if event.is_action_pressed("ui_page_up"):
@@ -167,6 +172,13 @@ func can_block() -> bool:
 	return left_arm_equipment.equipment_type == EquipmentInfo.EquipmentType.BLOCK
 
 
+func can_aim() -> bool:
+	if not right_hand_equipment:
+		return false
+
+	return right_hand_equipment.equipment_type == EquipmentInfo.EquipmentType.RANGED
+
+
 func can_bash_attack() -> bool:
 	if not can_block:
 		return false
@@ -208,7 +220,22 @@ func _update_mouse_direction_lock() -> void:
 		look_pivot.look_at(target_look, Vector3.UP, true)
 
 
+func _update_character_secondary_action(enabled: bool) -> void:
+	match character_class:
+		CharacterClass.KNIGHT:
+			pass
+		CharacterClass.BARBARIAN:
+			pass
+		CharacterClass.ROGUE:
+			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = !enabled
+			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = enabled
+		CharacterClass.MAGE:
+			pass
+
+
 func _update_character() -> void:
+	change_state("idle")
+
 	class_change_particles.restart()
 
 	player_mesh.visible = false
@@ -226,6 +253,8 @@ func _update_character() -> void:
 
 	player_mesh.visible = true
 	player_mesh.transform = old_transform
+
+	_update_character_secondary_action(is_holding_secondary_action)
 
 	_update_animation_tree()
 	_update_equipment_references()
@@ -251,6 +280,13 @@ func _update_equipment_references() -> void:
 	_update_equipment_for_bone(right_hand, EquipmentInfo.SlotType.RIGHT_HAND)
 	_update_equipment_for_bone(left_hand, EquipmentInfo.SlotType.LEFT_HAND)
 	_update_equipment_for_bone(left_arm, EquipmentInfo.SlotType.LEFT_ARM)
+
+#	if right_hand_equipment:
+#		print("Right hand: %s" % right_hand_equipment.name)
+#	if left_hand_equipment:
+#		print("Left hand: %s" % left_hand_equipment.name)
+#	if left_arm_equipment:
+#		print("Left arm: %s" % left_arm_equipment.name)
 
 
 func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: EquipmentInfo.SlotType) -> void:

@@ -27,6 +27,9 @@ func _process(delta: float) -> void:
 	if player.is_holding_secondary_action and player.can_block():
 		player.change_state("block")
 
+	if player.is_holding_secondary_action and player.can_aim():
+		player.change_state("aim")
+
 	if Input.is_action_just_pressed("jump"):
 		player.change_state("jump")
 

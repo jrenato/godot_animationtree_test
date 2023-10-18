@@ -21,6 +21,9 @@ func _process(delta: float) -> void:
 	if player.is_holding_secondary_action and player.can_block():
 		player.change_state("block")
 
+	if player.is_holding_secondary_action and player.can_aim():
+		player.change_state("aim")
+
 	var player_speed: float = player.velocity.length() / player.MAX_SPEED
 	# Comparing to 0.31 for a safety margin
 	if player_speed > 0.31:
