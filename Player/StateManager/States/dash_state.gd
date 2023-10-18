@@ -1,5 +1,8 @@
 class_name DashState extends State
 
+const DASH_MAX_SPEED: float = 14.0
+const DASH_ACCELERATION: float = 60.0
+
 var player: Player
 var dash_direction: Vector3
 
@@ -32,8 +35,8 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	player.velocity.x = move_toward(player.velocity.x, dash_direction.x * player.DASH_MAX_SPEED, player.DASH_ACCELERATION * delta)
-	player.velocity.z = move_toward(player.velocity.z, dash_direction.z * player.DASH_MAX_SPEED, player.DASH_ACCELERATION * delta)
+	player.velocity.x = move_toward(player.velocity.x, dash_direction.x * DASH_MAX_SPEED, DASH_ACCELERATION * delta)
+	player.velocity.z = move_toward(player.velocity.z, dash_direction.z * DASH_MAX_SPEED, DASH_ACCELERATION * delta)
 
 
 func _on_dash_timer_timeout() -> void:

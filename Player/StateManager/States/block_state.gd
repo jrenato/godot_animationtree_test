@@ -1,5 +1,8 @@
 class_name BlockState extends State
 
+const BASH_MAX_SPEED: float = 3.0
+const BASH_ACCELERATION: float = 10.0
+
 var player : Player
 var bash_direction: Vector3
 var is_bashing: bool = false
@@ -38,8 +41,8 @@ func _physics_process(delta: float) -> void:
 		player.velocity.x = move_toward(player.velocity.x, player.direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
 		player.velocity.z = move_toward(player.velocity.z, player.direction.z * player.MAX_SPEED, player.ACCELERATION * delta)
 	else:
-		player.velocity.x = move_toward(player.velocity.x, bash_direction.x * player.MAX_SPEED, player.ACCELERATION * delta)
-		player.velocity.z = move_toward(player.velocity.z, bash_direction.z * player.MAX_SPEED, player.ACCELERATION * delta)
+		player.velocity.x = move_toward(player.velocity.x, bash_direction.x * BASH_MAX_SPEED, BASH_ACCELERATION * delta)
+		player.velocity.z = move_toward(player.velocity.z, bash_direction.z * BASH_MAX_SPEED, BASH_ACCELERATION * delta)
 
 
 func _on_footstep(foot: String) -> void:

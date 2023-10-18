@@ -4,8 +4,6 @@ enum CharacterClass { KNIGHT, BARBARIAN, ROGUE, MAGE }
 
 const MAX_SPEED: float = 7.0
 const ACCELERATION: float = 30.0
-const DASH_MAX_SPEED: float = 14.0
-const DASH_ACCELERATION: float = 60.0
 
 const JUMP_VELOCITY: float = 300.0
 
