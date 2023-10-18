@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	if player.direction:
 		player.change_state("walk")
 
-	if player.is_holding_secondary_action:
+	if player.is_holding_secondary_action and player.can_block():
 		player.change_state("block")
 
 	if Input.is_action_just_pressed("jump"):

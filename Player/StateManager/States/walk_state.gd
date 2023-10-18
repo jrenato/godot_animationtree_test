@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	else:
 		player.change_state("idle")
 
-	if player.is_holding_secondary_action:
+	if player.is_holding_secondary_action and player.can_block():
 		player.change_state("block")
 
 	var player_speed: float = player.velocity.length() / player.MAX_SPEED

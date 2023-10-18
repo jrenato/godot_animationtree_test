@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 	player.player_mesh.rotation.x = 0.0
 	player.player_mesh.rotation.z = 0.0
 
-	if not player.is_holding_secondary_action:
+	if not player.is_holding_secondary_action and player.can_block():
 		player.change_state("idle")
 
 	if not player.is_on_floor():
