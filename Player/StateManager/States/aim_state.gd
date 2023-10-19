@@ -29,6 +29,12 @@ func _process(delta: float) -> void:
 		# Not needed. Handled by the AnimationTree and AnimationPlayer
 		pass
 
+	if not player.is_attacking and player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_node() == "Shooting":
+		# If it has shot at least once
+		if player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_play_position() >= 0.40:
+			# Cancel current animation if the player is not shooting anymore
+			player.animation_tree["parameters/BlockAimStateMachine/playback"].next()
+
 
 func _physics_process(delta: float) -> void:
 	player.velocity.x = move_toward(player.velocity.x, player.direction.x * AIM_MAX_SPEED, AIM_ACCELERATION * delta)
