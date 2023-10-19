@@ -1,9 +1,9 @@
 class_name RangedWeapon extends Node3D
 
 @export var equipment_info: EquipmentInfo
-@export var base_damage: int = 1
+@export var base_damage: int = 0
 @export var arrow_scene: PackedScene
 
 
 func shoot() -> void:
-	var projectile: Arrow = arrow_scene.instantiate()
+	Signals.spawn_projectile.emit(arrow_scene, base_damage, global_transform)

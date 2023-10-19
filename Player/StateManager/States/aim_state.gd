@@ -26,8 +26,9 @@ func _process(delta: float) -> void:
 #			player.animation_tree["parameters/BlockAimStateMachine/playback"].next()
 
 	if player.is_attacking:
-		# Not needed. Handled by the AnimationTree and AnimationPlayer
-		pass
+		# The single Shoot is handled by the animation.
+		# The sequential Shooting couldn't be handled by the animation.
+		player.shoot()
 
 	if not player.is_attacking and player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_node() == "Shooting":
 		# If it has shot at least once

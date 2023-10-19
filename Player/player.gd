@@ -32,9 +32,9 @@ var is_holding_secondary_action: bool = false
 var locked_with_mouse_button: bool = false
 var walk_toggle: bool = false
 
-var right_hand_equipment: EquipmentInfo
-var left_hand_equipment: EquipmentInfo
-var left_arm_equipment: EquipmentInfo
+var right_hand_equipment: Node3D
+var left_hand_equipment: Node3D
+var left_arm_equipment: Node3D
 
 # Character Base
 @onready var player_mesh: Node3D = %Knight
@@ -152,7 +152,7 @@ func is_single_wielding() -> bool:
 
 	# Holding two equipments?
 	# Only single wielding if they belong to different types
-	return right_hand_equipment.equipment_type != left_hand_equipment.equipment_type
+	return right_hand_equipment.equipment_info.equipment_type != left_hand_equipment.equipment_info.equipment_type
 
 
 func is_dual_wielding() -> bool:
@@ -162,21 +162,21 @@ func is_dual_wielding() -> bool:
 	if left_hand_equipment == null:
 		return false
 
-	return right_hand_equipment.equipment_type == left_hand_equipment.equipment_type
+	return right_hand_equipment.equipment_info.equipment_type == left_hand_equipment.equipment_info.equipment_type
 
 
 func can_block() -> bool:
 	if not left_arm_equipment:
 		return false
 
-	return left_arm_equipment.equipment_type == EquipmentInfo.EquipmentType.BLOCK
+	return left_arm_equipment.equipment_info.equipment_type == EquipmentInfo.EquipmentType.BLOCK
 
 
 func can_aim() -> bool:
 	if not right_hand_equipment:
 		return false
 
-	return right_hand_equipment.equipment_type == EquipmentInfo.EquipmentType.RANGED
+	return right_hand_equipment.equipment_info.equipment_type == EquipmentInfo.EquipmentType.RANGED
 
 
 func can_bash_attack() -> bool:
@@ -187,7 +187,14 @@ func can_bash_attack() -> bool:
 
 
 func shoot() -> void:
-	pass
+	if not right_hand_equipment:
+		return
+
+	if right_hand_equipment.equipment_info.equipment_type != EquipmentInfo.EquipmentType.RANGED:
+		return
+
+	if right_hand_equipment.has_method("shoot"):
+		right_hand_equipment.shoot()
 
 
 func update_locked_direction() -> void:
@@ -287,12 +294,12 @@ func _update_equipment_references() -> void:
 	_update_equipment_for_bone(left_hand, EquipmentInfo.SlotType.LEFT_HAND)
 	_update_equipment_for_bone(left_arm, EquipmentInfo.SlotType.LEFT_ARM)
 
-#	if right_hand_equipment:
-#		print("Right hand: %s" % right_hand_equipment.name)
-#	if left_hand_equipment:
-#		print("Left hand: %s" % left_hand_equipment.name)
-#	if left_arm_equipment:
-#		print("Left arm: %s" % left_arm_equipment.name)
+#	if right_hand_equipment != null:
+#		print("Right hand: %s" % right_hand_equipment.equipment_info.name)
+#	if left_hand_equipment != null:
+#		print("Left hand: %s" % left_hand_equipment.equipment_info.name)
+#	if left_arm_equipment != null:
+#		print("Left arm: %s" % left_arm_equipment.equipment_info.name)
 
 
 func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: EquipmentInfo.SlotType) -> void:
@@ -305,11 +312,11 @@ func _update_equipment_for_bone(bone_attachment: BoneAttachment3D, slot_type: Eq
 			if slot_type in equipment_info.slots:
 				match slot_type:
 					EquipmentInfo.SlotType.RIGHT_HAND:
-						right_hand_equipment = equipment_info
+						right_hand_equipment = equipment
 					EquipmentInfo.SlotType.LEFT_HAND:
-						left_hand_equipment = equipment_info
+						left_hand_equipment = equipment
 					EquipmentInfo.SlotType.LEFT_ARM:
-						left_arm_equipment = equipment_info
+						left_arm_equipment = equipment
 			return
 
 
