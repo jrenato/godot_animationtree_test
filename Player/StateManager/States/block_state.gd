@@ -14,7 +14,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	player.update_locked_direction()
+	if not is_bashing:
+		player.update_locked_direction()
 
 	if is_bashing and player.animation_tree["parameters/BlockAimStateMachine/playback"].get_current_node() != "Bash Attack":
 		is_bashing = false
