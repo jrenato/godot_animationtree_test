@@ -187,7 +187,7 @@ func can_bash_attack() -> bool:
 
 
 func shoot() -> void:
-	print("Shoot!")
+	pass
 
 
 func update_locked_direction() -> void:
@@ -229,10 +229,12 @@ func _update_character_secondary_action(enabled: bool) -> void:
 		CharacterClass.KNIGHT:
 			pass
 		CharacterClass.BARBARIAN:
-			pass
+			get_node("Barbarian/Rig/Skeleton3D/LeftHand/Axe").visible = !enabled
+			get_node("Barbarian/Rig/Skeleton3D/LeftArm/ShieldRoundBarbarian").visible = enabled
 		CharacterClass.ROGUE:
-			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = !enabled
-			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = enabled
+			pass
+#			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = !enabled
+#			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = enabled
 		CharacterClass.MAGE:
 			pass
 
@@ -259,9 +261,9 @@ func _update_character() -> void:
 	player_mesh.transform = old_transform
 
 	_update_character_secondary_action(is_holding_secondary_action)
+	_update_equipment_references()
 
 	_update_animation_tree()
-	_update_equipment_references()
 
 
 func _update_animation_tree() -> void:
