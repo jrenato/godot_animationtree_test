@@ -8,7 +8,7 @@ func _init() -> void:
 		"idle": IdleState,
 		"walk": WalkState,
 		"block": BlockState,
-		"aim": AimState,
+		"shoot": ShootState,
 		"run": RunState,
 		"dash": DashState,
 		"jump": JumpState,

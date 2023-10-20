@@ -190,13 +190,6 @@ func can_block() -> bool:
 	return left_arm_equipment.equipment_info.equipment_type == EquipmentInfo.EquipmentType.BLOCK
 
 
-func can_aim() -> bool:
-	if not right_hand_equipment:
-		return false
-
-	return right_hand_equipment.equipment_info.equipment_type == EquipmentInfo.EquipmentType.RANGED
-
-
 func can_bash_attack() -> bool:
 	if not can_block:
 		return false
@@ -285,7 +278,9 @@ func _update_character_secondary_action(enabled: bool) -> void:
 			get_node("Barbarian/Rig/Skeleton3D/LeftHand/Axe").visible = !enabled
 			get_node("Barbarian/Rig/Skeleton3D/LeftArm/ShieldRoundBarbarian").visible = enabled
 		CharacterClass.ROGUE:
-			pass
+			# TODO: Update to toggle forth and back from SneakState
+			if not animation_tree["parameters/MoveBlockAimOneShot/active"]:
+				animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 #			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = !enabled
 #			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = enabled
 		CharacterClass.MAGE:
