@@ -5,6 +5,8 @@ var reload_required: bool = false
 
 @export var equipment_info: EquipmentInfo
 @export var arrow_scene: PackedScene
+@export var spawn_point: Node3D
+@export var ammo_mesh: MeshInstance3D
 
 @export var base_damage: int = 0
 @export var max_ammo: int = 8
@@ -14,6 +16,7 @@ var reload_required: bool = false
 
 
 func _ready() -> void:
+	interval_timer.timeout.connect(_on_shoot_interval_timer_timeout)
 	ammo = max_ammo
 	if interval_timer:
 		# If there's not interval_timer set, consider that
@@ -26,7 +29,17 @@ func shoot() -> void:
 		return
 
 	if not reload_required and ammo > 0:
-		Signals.spawn_projectile.emit(arrow_scene, base_damage, global_transform)
+		if ammo_mesh:
+			ammo_mesh.visible = false
+
+		var spawn_location: Transform3D
+		if spawn_point:
+			spawn_location = spawn_point.global_transform
+		else:
+			spawn_location = global_transform
+
+		Signals.spawn_projectile.emit(arrow_scene, base_damage, spawn_location)
+
 		ammo -= 1
 
 	if ammo <= 0:
@@ -38,3 +51,10 @@ func shoot() -> void:
 func reload() -> void:
 	ammo = max_ammo
 	reload_required = false
+	if ammo_mesh:
+		ammo_mesh.visible = true
+
+
+func _on_shoot_interval_timer_timeout() -> void:
+	if not reload_required and ammo_mesh:
+		ammo_mesh.visible = true
