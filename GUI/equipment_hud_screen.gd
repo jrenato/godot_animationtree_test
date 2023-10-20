@@ -26,7 +26,7 @@ func _ready() -> void:
 
 # Called when the root's viewport size changes (i.e. when the window is resized).
 # This is done to handle multiple resolutions without losing quality.
-func _root_viewport_size_changed():
+func _root_viewport_size_changed() -> void:
 	# The viewport is resized depending on the window height.
 	# To compensate for the larger resolution, the viewport sprite is scaled down.
 	sub_viewport.size = Vector2.ONE * get_viewport().size.y
