@@ -92,14 +92,10 @@ func _input(event: InputEvent) -> void:
 		_update_character_secondary_action(true)
 		_update_equipment_references()
 
-		if event is InputEventMouseButton:
-			locked_with_mouse_button = true
-
 	if event.is_action_released("secondary_action"):
 		is_holding_secondary_action = false
 		_update_character_secondary_action(false)
 		_update_equipment_references()
-		locked_with_mouse_button = false
 
 	if event.is_action_pressed("ui_page_up"):
 		if character_class >= CharacterClass.size() - 1:
