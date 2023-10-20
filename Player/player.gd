@@ -29,7 +29,7 @@ var is_attacking: bool = false
 # * Mage: opens spellbook and start spell selection
 var is_holding_secondary_action: bool = false
 # Check if the mouse button is being used
-var locked_with_mouse_button: bool = false
+var using_keyboard_mouse: bool = false
 var walk_toggle: bool = false
 
 var right_hand_equipment: Node3D
@@ -63,6 +63,21 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and not using_keyboard_mouse:
+		using_keyboard_mouse = true
+
+	if event is InputEventMouseMotion and not using_keyboard_mouse:
+		using_keyboard_mouse = true
+
+	if event is InputEventKey and not using_keyboard_mouse:
+		using_keyboard_mouse = true
+
+	if event is InputEventJoypadButton and using_keyboard_mouse:
+		using_keyboard_mouse = false
+
+	if event is InputEventJoypadMotion and using_keyboard_mouse:
+		using_keyboard_mouse = false
+
 	if event.is_action_pressed("walk_toggle"):
 		walk_toggle = !walk_toggle
 
@@ -216,7 +231,7 @@ func reload() -> void:
 
 
 func update_locked_direction() -> void:
-	if locked_with_mouse_button:
+	if using_keyboard_mouse:
 		_update_mouse_direction_lock()
 	else:
 		_update_gamepad_direction_lock()
