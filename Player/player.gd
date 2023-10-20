@@ -186,15 +186,33 @@ func can_bash_attack() -> bool:
 	return bash_recharge_timer.is_stopped()
 
 
-func shoot() -> void:
+func can_shoot() -> bool:
 	if not right_hand_equipment:
-		return
+		return false
 
 	if right_hand_equipment.equipment_info.equipment_type != EquipmentInfo.EquipmentType.RANGED:
+		return false
+
+	return right_hand_equipment.has_method("shoot")
+
+
+func shoot() -> void:
+	if can_shoot() and not is_reloading():
+		right_hand_equipment.shoot()
+
+
+func is_reloading() -> bool:
+	if not can_shoot():
+		return false
+
+	return right_hand_equipment.reload_required
+
+
+func reload() -> void:
+	if not can_shoot():
 		return
 
-	if right_hand_equipment.has_method("shoot"):
-		right_hand_equipment.shoot()
+	right_hand_equipment.reload()
 
 
 func update_locked_direction() -> void:
