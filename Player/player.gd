@@ -36,6 +36,12 @@ var right_hand_equipment: Node3D
 var left_hand_equipment: Node3D
 var left_arm_equipment: Node3D
 
+var _melee_types: Array[EquipmentInfo.EquipmentType] = [
+	EquipmentInfo.EquipmentType.SLICE,
+	EquipmentInfo.EquipmentType.CHOP,
+	EquipmentInfo.EquipmentType.STAB
+]
+
 # Character Base
 @onready var player_mesh: Node3D = %Knight
 @onready var animation_tree: AnimationTree = %AnimationTree
@@ -195,6 +201,16 @@ func can_bash_attack() -> bool:
 		return false
 
 	return bash_recharge_timer.is_stopped()
+
+
+func can_melee() -> bool:
+	if not right_hand_equipment:
+		return false
+
+	if right_hand_equipment.equipment_info.equipment_type not in _melee_types:
+		return false
+
+	return true
 
 
 func can_shoot() -> bool:

@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 	if not player.is_on_floor():
 		player.change_state("fall")
 
-	if player.is_attacking:
+	if player.is_attacking and player.can_melee():
 		# If the player hit the button at the correct time, perform a special attack
 		if player.dash_timer.time_left <= 0.2:
 			player.change_state("dash_spin_attack")

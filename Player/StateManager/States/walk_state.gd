@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash"):
 		player.change_state("dash")
 
-	if player.is_attacking:
+	if player.is_attacking and player.can_melee():
 		player.change_state("attack")
 
 
