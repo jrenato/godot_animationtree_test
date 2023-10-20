@@ -155,6 +155,7 @@ func change_state(new_state_name: String) -> void:
 
 	state = state_factory.get_state(new_state_name).new()
 	state.name = new_state_name
+	#print(new_state_name)
 	add_child(state)
 
 
