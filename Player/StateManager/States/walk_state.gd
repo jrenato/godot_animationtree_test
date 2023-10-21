@@ -18,16 +18,13 @@ func _process(delta: float) -> void:
 	else:
 		player.change_state("idle")
 
-	if player.is_holding_secondary_action and player.can_block():
-		player.change_state("block")
-
-	if player.is_attacking and player.can_shoot():
-		player.change_state("shoot")
-
 	var player_speed: float = player.velocity.length() / player.MAX_SPEED
 	# Comparing to 0.31 for a safety margin
 	if player_speed > 0.31:
 		player.change_state("run")
+
+	if Input.is_action_just_pressed("dash"):
+		player.change_state("dash")
 
 	if Input.is_action_just_pressed("jump"):
 		player.change_state("jump")
@@ -35,11 +32,17 @@ func _process(delta: float) -> void:
 	if not player.is_on_floor():
 		player.change_state("fall")
 
-	if Input.is_action_just_pressed("dash"):
-		player.change_state("dash")
-
 	if player.is_attacking and player.can_melee():
 		player.change_state("attack")
+
+	if player.is_attacking and player.can_cast():
+		player.change_state("cast")
+
+	if player.is_attacking and player.can_shoot():
+		player.change_state("shoot")
+
+	if player.is_holding_secondary_action and player.can_block():
+		player.change_state("block")
 
 
 func _physics_process(delta: float) -> void:

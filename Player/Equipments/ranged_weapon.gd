@@ -16,11 +16,11 @@ var reload_required: bool = false
 
 
 func _ready() -> void:
-	interval_timer.timeout.connect(_on_shoot_interval_timer_timeout)
 	ammo = max_ammo
 	if interval_timer:
 		# If there's not interval_timer set, consider that
 		# there's no interval between shots
+		interval_timer.timeout.connect(_on_shoot_interval_timer_timeout)
 		interval_timer.wait_time = shoot_interval
 
 

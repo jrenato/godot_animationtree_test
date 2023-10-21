@@ -43,10 +43,18 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jau2w")
 
-[node name="Wand" type="Node3D"]
+[node name="Wand" type="Node3D" node_paths=PackedStringArray("spawn_point", "interval_timer")]
 script = ExtResource("1_m6wn8")
 equipment_info = ExtResource("2_hmijj")
+spawn_point = NodePath("SpawnPoint")
+interval_timer = NodePath("CastInternalTimer")
 
 [node name="wand2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_aydvf")
 skeleton = NodePath("")
+
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0338044, 0.728468, 0.000127733)
+
+[node name="CastInternalTimer" type="Timer" parent="."]
+one_shot = true

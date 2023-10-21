@@ -1,4 +1,4 @@
-class_name ShootState extends State
+class_name CastState extends State
 
 const AIM_MAX_SPEED: float = 4.0
 const AIM_ACCELERATION: float = 10.0
@@ -11,16 +11,20 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not player.can_shoot() or not player.is_attacking:
+	player.update_locked_direction()
+
+	if not player.can_cast() or not player.is_attacking:
+		player.animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
 		player.change_state("idle")
 
 	if not player.is_on_floor():
+		player.animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
 		player.change_state("fall")
 
-	if player.is_attacking and player.can_shoot():
-		player.update_locked_direction()
-		if not player.is_reloading():
-			player.shoot()
+	if player.is_attacking and player.can_cast():
+		if not player.is_cast_recharging():
+			player.animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+			player.cast()
 
 
 func _physics_process(delta: float) -> void:

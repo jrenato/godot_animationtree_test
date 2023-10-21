@@ -183,20 +183,6 @@ func is_dual_wielding() -> bool:
 	return right_hand_equipment.equipment_info.equipment_type == left_hand_equipment.equipment_info.equipment_type
 
 
-func can_block() -> bool:
-	if not left_arm_equipment:
-		return false
-
-	return left_arm_equipment.equipment_info.equipment_type == EquipmentInfo.EquipmentType.BLOCK
-
-
-func can_bash_attack() -> bool:
-	if not can_block:
-		return false
-
-	return bash_recharge_timer.is_stopped()
-
-
 func can_melee() -> bool:
 	if not right_hand_equipment:
 		return false
@@ -217,23 +203,48 @@ func can_shoot() -> bool:
 	return right_hand_equipment.has_method("shoot")
 
 
+func is_reloading() -> bool:
+	return can_shoot() and right_hand_equipment.reload_required
+
+
+func can_cast() -> bool:
+	if not right_hand_equipment:
+		return false
+
+	if right_hand_equipment.equipment_info.equipment_type != EquipmentInfo.EquipmentType.SPELLCAST:
+		return false
+
+	return right_hand_equipment.has_method("cast")
+
+
+func is_cast_recharging() -> bool:
+	return can_cast() and right_hand_equipment.is_recharging
+
+
+func can_block() -> bool:
+	if not left_arm_equipment:
+		return false
+
+	return left_arm_equipment.equipment_info.equipment_type == EquipmentInfo.EquipmentType.BLOCK
+
+
+func can_bash_attack() -> bool:
+	return can_block and bash_recharge_timer.is_stopped()
+
+
 func shoot() -> void:
 	if can_shoot() and not is_reloading():
 		right_hand_equipment.shoot()
 
 
-func is_reloading() -> bool:
-	if not can_shoot():
-		return false
-
-	return right_hand_equipment.reload_required
-
-
 func reload() -> void:
-	if not can_shoot():
-		return
+	if can_shoot():
+		right_hand_equipment.reload()
 
-	right_hand_equipment.reload()
+
+func cast() -> void:
+	if can_cast():
+		right_hand_equipment.cast()
 
 
 func update_locked_direction() -> void:
@@ -284,6 +295,7 @@ func _update_character_secondary_action(enabled: bool) -> void:
 #			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = !enabled
 #			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = enabled
 		CharacterClass.MAGE:
+			# TODO: Update to toggle forth and back from SpellBookState
 			pass
 
 
