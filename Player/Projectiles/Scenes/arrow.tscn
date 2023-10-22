@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://ce854hc73c5yu"]
 
-[ext_resource type="Script" path="res://Player/Projectiles/Scenes/arrow.gd" id="1_n6dp1"]
+[ext_resource type="Script" path="res://Player/Projectiles/projectile.gd" id="1_bg7s3"]
 [ext_resource type="Texture2D" uid="uid://strem5dsfx5b" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/rogue_texture.png" id="2_fiuau"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oc8v1"]
@@ -49,7 +49,7 @@ height = 0.870107
 [node name="Arrow" type="CharacterBody3D"]
 collision_layer = 8
 collision_mask = 5
-script = ExtResource("1_n6dp1")
+script = ExtResource("1_bg7s3")
 
 [node name="arrow2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.3)

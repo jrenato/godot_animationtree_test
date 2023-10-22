@@ -1,6 +1,8 @@
 class_name Projectile extends CharacterBody3D
 
-var base_damage: float = 0
+@export var speed: float = 10.0
+
+var base_damage: float = 1
 var target_hit: Node3D
 
 
@@ -8,7 +10,15 @@ func _ready() -> void:
 	pass
 
 
+func _process(delta: float) -> void:
+	if target_hit != null:
+		queue_free()
+
+
 func _physics_process(delta: float) -> void:
+	velocity.x = move_toward(velocity.x, transform.basis.z.x * speed, speed)
+	velocity.z = move_toward(velocity.z, transform.basis.z.z * speed, speed)
+
 	move_and_slide()
 
 	for index in get_slide_collision_count():
