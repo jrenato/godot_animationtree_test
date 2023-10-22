@@ -13,3 +13,4 @@ fov = 40.0
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="Camera3D"]
 update_mode = 1
+size = Vector3(40, 40, 40)

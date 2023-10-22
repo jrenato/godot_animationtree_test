@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://d04noci1cj7mn"]
+
+[ext_resource type="Shader" path="res://Player/Projectiles/Scenes/energy_sphere.gdshader" id="1_yxadc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q4v80"]
+radius = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2di41"]
+render_priority = 0
+shader = ExtResource("1_yxadc")
+shader_parameter/base_color = null
+shader_parameter/fresnel_color = null
+shader_parameter/exponent = 4.0
+shader_parameter/intensity = 4.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_xbu0m"]
+material = SubResource("ShaderMaterial_2di41")
+radius = 0.1
+height = 0.2
+
+[node name="EnergySphere" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_q4v80")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_xbu0m")
