@@ -22,9 +22,9 @@ func _process(delta: float) -> void:
 		player.change_state("fall")
 
 	if player.is_attacking and player.can_cast():
-		if not player.is_cast_recharging():
+		if not player.is_cast_recharging() and not player.animation_tree["parameters/MoveBlockAimOneShot/active"]:
 			player.animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-			player.cast()
+			#player.cast()
 
 
 func _physics_process(delta: float) -> void:

@@ -6,8 +6,8 @@
 radius = 0.1
 
 [sub_resource type="Gradient" id="Gradient_4jng8"]
-offsets = PackedFloat32Array(0, 0.16185, 0.410405, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.0862745, 1, 1, 1, 0, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0, 0.165992, 0.303644, 0.611336, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.243137, 1, 1, 1, 0.0862745, 1, 1, 1, 0, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_g5q3l"]
 gradient = SubResource("Gradient_4jng8")
@@ -16,10 +16,12 @@ fill_from = Vector2(0.5, 0.5)
 
 [node name="EnergySphere" type="CharacterBody3D"]
 script = ExtResource("1_imf2x")
+speed = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_q4v80")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
+modulate = Color(0.698039, 0.905882, 1, 1)
 billboard = 1
 texture = SubResource("GradientTexture2D_g5q3l")
