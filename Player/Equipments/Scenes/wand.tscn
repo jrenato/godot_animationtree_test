@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddoa5c4uaiq3l"]
+[gd_scene load_steps=8 format=3 uid="uid://ddoa5c4uaiq3l"]
 
 [ext_resource type="Texture2D" uid="uid://cmjbom3yvym4l" path="res://Assets/KayKit_Adventurers_1.0_FREE/Assets/mage_texture.png" id="1_3vvuv"]
 [ext_resource type="Script" path="res://Player/Equipments/spellcast_weapon.gd" id="1_m6wn8"]
 [ext_resource type="Resource" uid="uid://ci846l6wxhkrj" path="res://Player/Equipments/Resources/wand.tres" id="2_hmijj"]
+[ext_resource type="PackedScene" uid="uid://d04noci1cj7mn" path="res://Player/Projectiles/Scenes/energy_sphere.tscn" id="3_kwga3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1sl5"]
 resource_name = "mage_texture"
@@ -43,18 +44,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jau2w")
 
-[node name="Wand" type="Node3D" node_paths=PackedStringArray("spawn_point", "interval_timer")]
+[node name="Wand" type="Node3D" node_paths=PackedStringArray("interval_timer")]
 script = ExtResource("1_m6wn8")
 equipment_info = ExtResource("2_hmijj")
-spawn_point = NodePath("SpawnPoint")
+magic_scene = ExtResource("3_kwga3")
 interval_timer = NodePath("CastInternalTimer")
 
 [node name="wand2" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_aydvf")
 skeleton = NodePath("")
-
-[node name="SpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0338044, 0.728468, 0.000127733)
 
 [node name="CastInternalTimer" type="Timer" parent="."]
 one_shot = true

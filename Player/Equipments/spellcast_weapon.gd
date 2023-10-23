@@ -26,15 +26,14 @@ func cast() -> void:
 			return
 
 		interval_timer.start()
-	
-#	var spawn_location: Transform3D
-#	if spawn_point:
-#		spawn_location = spawn_point.global_transform
-#	else:
-#		spawn_location = global_transform
 
-	print("Cast!")
-	#Signals.spawn_projectile.emit(magic_scene, base_damage, spawn_location)
+	if magic_scene:
+		var spawn_location: Transform3D
+		if spawn_point:
+			spawn_location = spawn_point.global_transform
+		else:
+			spawn_location = global_transform
+		Signals.spawn_projectile.emit(magic_scene, base_damage, spawn_location)
 
 
 func _on_cast_interval_timer_timeout() -> void:
