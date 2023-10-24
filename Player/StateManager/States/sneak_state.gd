@@ -15,10 +15,11 @@ func exit() -> void:
 
 
 func _process(delta: float) -> void:
-	player.update_locked_direction()
-
 	if not player.is_on_floor():
 		player.change_state("fall")
+
+	if not player.animation_tree["parameters/AttackOneShot/active"]:
+		player.update_locked_direction()
 
 	if player.is_attacking and player.can_melee():
 		if not player.animation_tree["parameters/AttackOneShot/active"]:

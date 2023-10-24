@@ -207,8 +207,11 @@ func is_reloading() -> bool:
 	return can_shoot() and right_hand_equipment.reload_required
 
 
-func is_shoot_recharging() -> bool:
-	return can_shoot() and right_hand_equipment.is_recharging
+func is_ready_to_shoot() -> bool:
+	if not can_shoot() or is_reloading() or right_hand_equipment.is_recharging:
+		return false
+
+	return true
 
 
 func can_cast() -> bool:
@@ -237,7 +240,7 @@ func can_bash_attack() -> bool:
 
 
 func shoot() -> void:
-	if can_shoot() and not is_reloading():
+	if can_shoot() and is_ready_to_shoot():
 		right_hand_equipment.shoot()
 
 
