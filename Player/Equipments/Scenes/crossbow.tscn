@@ -90,6 +90,7 @@ arrow_scene = ExtResource("3_486yf")
 spawn_point = NodePath("SpawnPoint")
 ammo_mesh = NodePath("arrow2")
 base_damage = 1
+shoot_interval = 1.0
 interval_timer = NodePath("ShootIntervalTimer")
 
 [node name="crossbow_1handed2" type="MeshInstance3D" parent="."]

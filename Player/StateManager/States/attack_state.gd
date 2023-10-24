@@ -5,25 +5,17 @@ var player : Player
 
 func _ready() -> void:
 	player = get_parent()
-
-#	# Small hack to cut the animation start and prevent sluggish animation
-#	if player.current_combo_state == player.AttackComboState.REVERSE_SLICE:
-#		player.animation_tree["parameters/AttackTimeSeek/seek_request"] = 0.4
-#	if player.current_combo_state == player.AttackComboState.CHOP:
-#		player.animation_tree["parameters/AttackTimeSeek/seek_request"] = 0.3
-
 	start_animation()
+
+
+func exit() -> void:
+	stop_animation()
 
 
 func _process(delta: float) -> void:
 	if player.direction:
 		var align = player.player_mesh.transform.looking_at(player.player_mesh.transform.origin - player.direction)
 		player.player_mesh.transform = player.player_mesh.transform.interpolate_with(align, delta * 10.0)
-
-	# Hack to cut the slow end of Stab animation
-#	if player.animation_tree["parameters/AttackOneShot/active"] and player.current_combo_state == player.AttackComboState.STAB:
-#		if player.animation_tree["parameters/AttackStateMachine/playback"].get_current_play_position() >= 0.4:
-#			player.animation_tree["parameters/AttackStateMachine/playback"].next()
 
 	if not is_running_animation():
 		# Attack animation has ended, change to idle

@@ -207,6 +207,10 @@ func is_reloading() -> bool:
 	return can_shoot() and right_hand_equipment.reload_required
 
 
+func is_shoot_recharging() -> bool:
+	return can_shoot() and right_hand_equipment.is_recharging
+
+
 func can_cast() -> bool:
 	if not right_hand_equipment:
 		return false
@@ -289,11 +293,23 @@ func _update_character_secondary_action(enabled: bool) -> void:
 			get_node("Barbarian/Rig/Skeleton3D/LeftHand/Axe").visible = !enabled
 			get_node("Barbarian/Rig/Skeleton3D/LeftArm/ShieldRoundBarbarian").visible = enabled
 		CharacterClass.ROGUE:
-			# TODO: Update to toggle forth and back from SneakState
-			if not animation_tree["parameters/MoveBlockAimOneShot/active"]:
+			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = enabled
+			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = !enabled
+
+			get_node("Rogue/Rig/Skeleton3D/Rogue_Head_Hooded").visible = enabled
+			get_node("Rogue/Rig/Skeleton3D/Rogue_Head").visible = !enabled
+
+			if not animation_tree["parameters/MoveBlockAimOneShot/active"] and not enabled:
 				animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-#			get_node("Rogue/Rig/Skeleton3D/RightHand/Dagger").visible = !enabled
-#			get_node("Rogue/Rig/Skeleton3D/RightHand/Crossbow").visible = enabled
+
+			if animation_tree["parameters/MoveBlockAimOneShot/active"] and enabled:
+				animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
+
+			if enabled:
+				change_state("sneak")
+			else:
+				change_state("idle")
+
 		CharacterClass.MAGE:
 			# TODO: Update to toggle forth and back from SpellBookState
 			pass

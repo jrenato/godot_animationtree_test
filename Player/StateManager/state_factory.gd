@@ -8,6 +8,7 @@ func _init() -> void:
 		"idle": IdleState,
 		"walk": WalkState,
 		"run": RunState,
+		"sneak": SneakState,
 
 		"jump": JumpState,
 		"fall": FallState,

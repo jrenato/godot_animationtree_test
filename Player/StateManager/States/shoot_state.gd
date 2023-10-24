@@ -19,8 +19,11 @@ func _process(delta: float) -> void:
 
 	if player.is_attacking and player.can_shoot():
 		player.update_locked_direction()
-		if not player.is_reloading():
-			player.shoot()
+		if not player.is_shoot_recharging()\
+			and not player.is_reloading()\
+			and not player.animation_tree["parameters/MoveBlockAimOneShot/active"]:
+			#player.shoot()
+			pass
 
 
 func _physics_process(delta: float) -> void:

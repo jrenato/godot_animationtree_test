@@ -11,8 +11,13 @@ var reload_required: bool = false
 @export var base_damage: int = 0
 @export var max_ammo: int = 8
 @export var shoot_interval: float = 0.4
-
 @export var interval_timer: Timer
+
+var is_recharging: bool :
+	get:
+		if not interval_timer:
+			return false
+		return not interval_timer.is_stopped()
 
 
 func _ready() -> void:
