@@ -228,6 +228,16 @@ func is_cast_recharging() -> bool:
 	return can_cast() and right_hand_equipment.is_recharging
 
 
+func can_choose_spell() -> bool:
+	if not left_hand_equipment:
+		return false
+
+	if left_hand_equipment.equipment_info.equipment_type != EquipmentInfo.EquipmentType.SPELLBOOK:
+		return false
+
+	return left_hand_equipment.has_method("choose")
+
+
 func can_block() -> bool:
 	if not left_arm_equipment:
 		return false
@@ -314,8 +324,8 @@ func _update_character_secondary_action(enabled: bool) -> void:
 				change_state("idle")
 
 		CharacterClass.MAGE:
-			# TODO: Update to toggle forth and back from SpellBookState
-			pass
+			if can_choose_spell():
+				left_hand_equipment.active = enabled
 
 
 func _update_character() -> void:
@@ -339,10 +349,9 @@ func _update_character() -> void:
 	player_mesh.visible = true
 	player_mesh.transform = old_transform
 
-	_update_character_secondary_action(is_holding_secondary_action)
 	_update_equipment_references()
-
 	_update_animation_tree()
+	_update_character_secondary_action(is_holding_secondary_action)
 
 
 func _update_animation_tree() -> void:

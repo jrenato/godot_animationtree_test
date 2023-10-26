@@ -87,10 +87,12 @@ script = ExtResource("1_fhyks")
 equipment_info = ExtResource("2_miorp")
 
 [node name="spellbook_open" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 visible = false
 mesh = SubResource("ArrayMesh_tlk1m")
 skeleton = NodePath("")
 
 [node name="spellbook_closed" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("ArrayMesh_ip1rl")
 skeleton = NodePath("")
