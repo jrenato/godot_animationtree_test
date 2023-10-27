@@ -324,8 +324,11 @@ func _update_character_secondary_action(enabled: bool) -> void:
 				change_state("idle")
 
 		CharacterClass.MAGE:
-			if can_choose_spell():
-				left_hand_equipment.active = enabled
+			left_hand_equipment.active = enabled
+			if enabled:
+				change_state("spell_choose")
+			else:
+				change_state("idle")
 
 
 func _update_character() -> void:

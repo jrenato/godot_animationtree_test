@@ -5,6 +5,7 @@ var player : Player
 
 func _ready() -> void:
 	player = get_parent()
+	player.animation_tree["parameters/MoveBlockAimOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
 func _process(delta: float) -> void:
@@ -20,9 +21,9 @@ func _process(delta: float) -> void:
 #			player.animation_tree["parameters/AttackOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 
 
-#func _physics_process(delta: float) -> void:
-#	player.velocity.x = move_toward(player.velocity.x, player.direction.x * SNEAK_MAX_SPEED, SNEAK_ACCELERATION * delta)
-#	player.velocity.z = move_toward(player.velocity.z, player.direction.z * SNEAK_MAX_SPEED, SNEAK_ACCELERATION * delta)
+func _physics_process(delta: float) -> void:
+	player.velocity.x = move_toward(player.velocity.x, 0, player.ACCELERATION * delta)
+	player.velocity.z = move_toward(player.velocity.z, 0, player.ACCELERATION * delta)
 
 
 func _on_footstep(foot: String) -> void:

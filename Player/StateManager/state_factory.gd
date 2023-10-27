@@ -22,6 +22,7 @@ func _init() -> void:
 		"cast": CastState,
 
 		"block": BlockState,
+		"spell_choose": SpellChooseState,
 	}
 
 
